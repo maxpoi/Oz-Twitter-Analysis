@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "maxpoi",
+      "name": "Jiacheng Ye",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27168274?v=4",
+      "profile": "https://github.com/maxpoi",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "COMP90024-Assignment-2",
+  "projectOwner": "maxpoi",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
