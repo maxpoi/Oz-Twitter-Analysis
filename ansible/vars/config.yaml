@@ -23,5 +23,5 @@ couch:
   pwd: 'admin'
   cookie: 'comp90024'
   port: 5984
-  count: 4
   dir: /data/couchdb
+  num_nodes: 3

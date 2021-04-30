@@ -1,0 +1,71 @@
+# @author, Jiacheng Ye, 904973
+
+---
+# https://docs.docker.com/engine/install/linux-postinstall/
+- name: Create docker group
+  become: yes
+  group:
+    name: docker
+    state: present
+
+# avoid using sudo all the time
+- name: Add ubuntu to docker group
+  become: yes
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
+
+# https://docs.docker.com/config/daemon/systemd/
+- name: Create required directory
+  become: yes
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+
+- name: Configure docker daemon proxy
+  become: yes
+  copy:
+    src: http-proxy.conf
+    dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+
+
+# https://stackoverflow.com/questions/42040688/docker-daemon-start-using-ansible
+- name: Restart docker
+  become: yes
+  systemd:
+    name: docker
+    state: restarted
+    daemon_reload: yes
+
+# - name: Check proxy's are set
+#   become: yes
+#   shell:
+#     cmd: systemctl show --property=Environment docker
+
+# # https://www.codenotary.com/blog/automatic-deployment-of-a-docker-compose-stack-using-ansible/
+# - name: Remove previous images
+#   become: yes
+#   shell:
+#     cmd: docker images -a -q|xargs -r docker rmi -f
+
+# # https://stackoverflow.com/questions/62184206/ansible-plybook-script-for-destroy-all-containers-and-remove-images-from-remote
+# - name: List all containers
+#   become: yes
+#   docker_host_info:
+#     containers: yes
+#   register: containers_list
+
+# - name: Stop all containers
+#   become: yes
+#   docker_container:
+#     name: "{{ item }}"
+#     state: stopped
+#   loop: "{{ containers_list.containers | map(attribute='Id') | list }}"
+
+# - name: Remove previous containers
+#   become: yes
+#   shell: |
+#     docker rm $(docker ps -a -q);
+#   when: containers_list.containers != 0
+

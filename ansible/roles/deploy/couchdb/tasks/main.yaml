@@ -20,10 +20,36 @@
   become: yes
   file:
     path: '{{ couch.dir }}'
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     recurse: yes
     state: directory
 
 - name: Upload compose file by using j2
+  become: yes
   template:
-    src: docker-compose.yaml.j2
+    src: docker-compose.yml.j2
     dest: '{{ couch.dir }}/docker-compose.yaml'
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Create data directory
+  become: yes
+  file:
+    path: '{{ couch.dir }}/data'
+    recurse: yes
+    state: directory
+
+- name: run docker compose
+  docker_compose:
+    project_src: '{{ couch.dir }}'
+    pull: yes
+    state: present
+    remove_orphans: yes
+    recreate: smart
+
+    # https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
+- name: Wait for a while
+  wait_for:
+    port: 5984
+    timeout: 60
