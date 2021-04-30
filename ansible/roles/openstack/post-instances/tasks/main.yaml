@@ -1,0 +1,33 @@
+# @author, Jiacheng Ye, 904973
+
+---
+
+- name: Gather all instances info
+  os_server_info:
+    server: 'ins*'
+  register: instances_info
+
+- name: Set IPs to facts for later couchDB usage
+  set_fact:
+    instance_ips: "{{ instances_info.openstack_servers | map(attribute='public_v4') | list | sort }}"
+
+- name: Add host
+  add_host:
+    name: '{{ item }}'
+    groups: COMP90024
+  loop: '{{ instance_ips }}'
+
+- name: Print hosts
+  debug:
+    msg: ' {{ item }}'
+  with_inventory_hostnames:
+    - all
+
+- name: Register master & workers
+  set_fact: 
+    master: " {{ instance_ips | first }} "
+    workers: " {{ instance_ips[1:] }} "
+    
+- name: Print master, workers
+  debug:
+    msg: "master: {{ master }}, \nworkers: {{ workers }}"

@@ -1,8 +1,32 @@
 # @author, Jiacheng Ye, 904973
 
--
+---
 # https://docs.ansible.com/ansible/latest/collections/community/general/filesystem_module.html
 # process are followed by the instructions from the lecture 9-10
+
+# - name: Debug
+#   debug:
+#     msg: 
+#       - "{{ ansible_hostname }} "
+#       - "{{ ansible_host }}"
+#       - "{{ inventory_hostname }}"
+
+- name: Install dependencies
+  become: yes
+  apt:
+    name: ['xfsprogs']
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Make file system
+  become: yes
+  filesystem:
+    fstype: xfs
+    dev: "{{ item.device }}"
+  when: item.device is defined
+  with_items:
+    - "{{ volumes }}"
 
 - name: Create directory
   become: yes
@@ -10,31 +34,10 @@
     path: "{{ item.mountpoint }}"
     recurse: yes
     state: directory
-  when: item.device is defined
   with_items:
     - "{{ volumes }}"
-
-- name: Create a ext4 filesystem on /dev/vdb
-  filesystem:
-    fstype: ext4
-    dev: /dev/
-    opts: -cc
-  when: item.device is defined
-  with_items:
-    - "{{ volumes }}"
-
-- name: Checking folders
-  tags: 'volumes'
-  become: yes
-  stat:
-    path: "{{ item.mountpoint }}"
-  register: directory_stats
-  with_items:
-    - "{{ volumes }}"
-
 
 - name: Mount device
-  tags: 'volumes'
   become: yes
   mount:
     path: "{{ item.mountpoint }}"

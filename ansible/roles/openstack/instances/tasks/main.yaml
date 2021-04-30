@@ -33,16 +33,3 @@
   loop: '{{ os_instance.results }}'
   when: item.openstack is defined
 
-- name: Add host
-  add_host:
-    name: '{{ item.openstack.public_v4 }}'
-    groups: COMP90024
-  loop: '{{ os_instance.results }}'
-  when: item.openstack is defined
-
-- name: Print hosts
-  debug:
-    msg: ' {{ item }}'
-  with_inventory_hostnames:
-    - all
-  

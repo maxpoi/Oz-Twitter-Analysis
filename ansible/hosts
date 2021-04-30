@@ -1,0 +1,10 @@
+# @author, Jiacheng Ye, 904973
+# workshop example
+
+[COMP90024]
+
+[COMP90024:vars]
+#ansible_python_interpreter=/user/bin/python3
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/desktop/ccc/comp90024-assignment2-jiachengye.pem
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

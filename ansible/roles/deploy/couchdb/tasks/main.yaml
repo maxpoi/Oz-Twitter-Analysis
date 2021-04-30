@@ -1,0 +1,29 @@
+# @author, Jiacheng Ye, 904973
+---
+
+# - name: Start a container with a couchdb node
+#   become: yes
+#   docker_container:
+#     name: "{{ couchdb_container_name}}"
+#     image: "{{ couchdb_image }}"
+#     ports:
+#       - "{{couchdb_port}}:{{couchdb_port}}" # 80 due to change security_group later
+#       - "9100:9100"
+#       - "4369:4369"
+#     env:
+#       COUCHDB_PASSWORD: "{{ couchdb_pass }}"
+#       COUCHDB_USER: "{{ couchdb_user }}"
+#       NODENAME: "{{ ansible_host }}"
+#       COUCHDB_SECRET: "{{ couchdb_cookie }}"
+
+- name: Create couch directory
+  become: yes
+  file:
+    path: '{{ couch.dir }}'
+    recurse: yes
+    state: directory
+
+- name: Upload compose file by using j2
+  template:
+    src: docker-compose.yaml.j2
+    dest: '{{ couch.dir }}/docker-compose.yaml'

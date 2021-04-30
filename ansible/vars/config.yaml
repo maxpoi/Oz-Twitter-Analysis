@@ -1,26 +1,27 @@
-apt-packages:
+# @author, Jiacheng Ye, 904973
+
+apt_packages:
   - apt-transport-https
   - ca-certificates
   - curl
   - software-properties-common
   - gnupg-agent
 
-docker-pakages:
+docker_packages:
   - docker-ce
   - docker-ce-cli 
   - containerd.io
 
 volumes:
   - device: /dev/vdb
-    mountpoint: /docker
-  - device: /dev/vdb
-    mountpoint: /data
-  - device: /dev/vdb
     mountpoint: /data
 
 couch:
+  image: ibmcom/couchdb3
+  version: '3.1.1'
   user: 'admin'
   pwd: 'admin'
   cookie: 'comp90024'
   port: 5984
   count: 4
+  dir: /data/couchdb

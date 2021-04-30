@@ -12,31 +12,23 @@
   gather_facts: true
 
   roles:
-    - role: openstack/common
-    - role: openstack/images
-    - role: openstack/volumes
-    - role: openstack/security-groups
-    - role: openstack/instances
+    # - role: openstack/common
+    # - role: openstack/images
+    # - role: openstack/volumes
+    # - role: openstack/security-groups
+    # - role: openstack/instances
+    - role: openstack/post-instances
     # - role: openstack-volume-snapshot
 
 
 # change hosts to COMP90024 to start the tasks
 
-# now mount the volumes before continue
-- name: Mount volumes
-  hosts: foo
-  gather_facts: true
-  vars_files:
-    - vars/mrc.yaml
-    - vars/config.yaml
-  roles:
-    - role: set-up/mount-volumes
-
 - name: Set Up Dependencies On Each VM
-  hosts: foo
+  hosts: COMP90024
   gather_facts: true
   vars_files:
     - vars/config.yaml
   roles:
-    - role: set-up/add-proxy
+    # - role: set-up/add-proxy
+    # - role: set-up/mount-volumes
     - role: set-up/install-packages

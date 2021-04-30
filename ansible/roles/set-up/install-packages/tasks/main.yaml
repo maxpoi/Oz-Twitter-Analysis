@@ -30,25 +30,27 @@
 - name: Install docker required apt packages
   become: yes
   apt:
-    name: "{{ apt-packages }}"
-    state: lastest
+    name: "{{ apt_packages }}"
+    state: latest
     update_cache: yes
 
 # https://www.quora.com/Why-do-we-require-a-GPG-key-downloading-Docker-packages
 - name: Add Docker GPG apt Key
+  become: yes
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Set up stable version for apt repository
+  become: yes
   apt_repository:
-    repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable'
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
     state: present
 
 - name: Install Docker
+  become: yes
   apt:
-    name: "{{ docker-pakages }}"
+    name: "{{ docker_packages }}"
     state: latest
     update_cache: yes
 
@@ -58,5 +60,29 @@
     name: ['docker-compose']
     state: latest
 
+# https://www.codenotary.com/blog/automatic-deployment-of-a-docker-compose-stack-using-ansible/
+- name: Remove previous images
+  become: yes
+  shell:
+    cmd: docker images -a -q|xargs -r docker rmi -f
 
+# https://stackoverflow.com/questions/62184206/ansible-plybook-script-for-destroy-all-containers-and-remove-images-from-remote
+- name: List all containers
+  become: yes
+  docker_host_info:
+    containers: yes
+  register: containers_list
+
+- name: Stop all containers
+  become: yes
+  docker_container:
+    name: "{{ item }}"
+    state: stopped
+  loop: "{{ containers_list.containers | map(attribute='Id') | list }}"
+
+# - name: Remove previous containers
+#   become: yes
+#   shell: |
+#     docker rm $(docker ps -a -q);
+#   when: containers_list.containers != 0
 
