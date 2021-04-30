@@ -32,6 +32,8 @@
       2. save then close it
   3. Open ansible/hosts
       1. change *ansible_ssh_private_key_file* to your private key path
+  4.  Open ansible/main.yaml
+      1. uncomment all *roles*
   4. Connect AnyConnet
   5. In terminal, run "sh ./run.sh
   6. Open run.sh
