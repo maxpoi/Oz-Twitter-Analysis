@@ -1,0 +1,26 @@
+apt-packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - gnupg-agent
+
+docker-pakages:
+  - docker-ce
+  - docker-ce-cli 
+  - containerd.io
+
+volumes:
+  - device: /dev/vdb
+    mountpoint: /docker
+  - device: /dev/vdb
+    mountpoint: /data
+  - device: /dev/vdb
+    mountpoint: /data
+
+couch:
+  user: 'admin'
+  pwd: 'admin'
+  cookie: 'comp90024'
+  port: 5984
+  count: 4

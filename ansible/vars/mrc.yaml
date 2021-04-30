@@ -1,0 +1,50 @@
+# @author, Jiacheng Ye, 904973
+
+# Common vars
+availability_zone: melbourne-qh2-uom
+
+# Volume
+volumes:
+  - vol_name: data-0@instance-server-0
+    vol_size: 80
+  - vol_name: data-1@instance-server-1
+    vol_size: 60
+  - vol_name: data-2@instance-server-2
+    vol_size: 60
+
+# Security group
+security_groups:
+  - name: ssh
+    description: "ssh on port 22"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  - name: http
+    description: "http"
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  - name: https
+    description: "https"
+    protocol: tcp
+    port_range_min: 443
+    port_range_max: 443
+    remote_ip_prefix: 0.0.0.0/0
+
+# Instance
+instances:
+  - name: instance-server-0
+    volumes: ['data-0@instance-server-0']
+  - name: instance-server-1
+    volumes: ['data-1@instance-server-1']
+  - name: instance-server-2
+    volumes: ['data-2@instance-server-2']
+
+instance:
+  # ubuntu 20.04 LTS
+  image: f8b79936-6616-4a22-b55d-0d0a1d27bceb
+  key_name: first-try-out-test-key-pair
+  flavor: uom.mse.2c9g
+

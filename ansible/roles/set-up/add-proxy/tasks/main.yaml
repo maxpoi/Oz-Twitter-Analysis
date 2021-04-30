@@ -1,0 +1,10 @@
+# @author, Jiacheng Ye, 904973
+
+---
+# Since internal vms require proxy to access external resources
+- name: Copy environment file from local to remote
+  # enable root access (sort of)
+  become: yes
+  copy:
+    src: environment
+    dest: /etc/environment

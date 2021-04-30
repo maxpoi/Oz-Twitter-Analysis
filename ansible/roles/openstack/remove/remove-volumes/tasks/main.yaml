@@ -1,0 +1,16 @@
+# @author, Jiacheng Ye, 904973
+# workshop
+
+---
+
+# Remove volumes from vars
+- name: Remove volume(s) on NeCTAR
+  os_volume:
+    display_name: '{{ item.vol_name }}'
+    size: '{{ item.vol_size }}'
+    availability_zone: '{{ availability_zone }}'
+    wait: yes
+    timeout: 600
+    state: absent
+  loop: '{{ volumes }}'
+  register: os_vol

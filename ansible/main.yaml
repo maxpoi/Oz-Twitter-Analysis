@@ -1,0 +1,42 @@
+# @author, Jiacheng Ye, 904973
+# workshop
+
+---
+
+- name: Initiate Openstacks
+  hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3
+  vars_files:
+    - vars/mrc.yaml
+  gather_facts: true
+
+  roles:
+    - role: openstack/common
+    - role: openstack/images
+    - role: openstack/volumes
+    - role: openstack/security-groups
+    - role: openstack/instances
+    # - role: openstack-volume-snapshot
+
+
+# change hosts to COMP90024 to start the tasks
+
+# now mount the volumes before continue
+- name: Mount volumes
+  hosts: foo
+  gather_facts: true
+  vars_files:
+    - vars/mrc.yaml
+    - vars/config.yaml
+  roles:
+    - role: set-up/mount-volumes
+
+- name: Set Up Dependencies On Each VM
+  hosts: foo
+  gather_facts: true
+  vars_files:
+    - vars/config.yaml
+  roles:
+    - role: set-up/add-proxy
+    - role: set-up/install-packages
