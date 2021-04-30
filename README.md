@@ -21,3 +21,20 @@
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## Project structure
+
+
+### How to run?
+  1. Open up a ***new terminal***
+  2. Open run.sh
+      1. uncomment all command lines
+      2. save then close it
+  3. Open ansible/hosts
+      1. change *ansible_ssh_private_key_file* to your private key path
+  4. Connect AnyConnet
+  5. In terminal, run "sh ./run.sh
+  6. Open run.sh
+      1. Comment out *. ./openrc.sh*
+      2. Comment out next command as well
+    
