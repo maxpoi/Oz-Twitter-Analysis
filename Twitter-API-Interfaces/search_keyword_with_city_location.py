@@ -58,7 +58,7 @@ def count_keyword_in_different_cities(keyword, city, max_num, api):
 
 def main():
     # 得到 Twitter API 句柄
-    api = twitter_api_config()
+    api = twitter_api()
 
     # The keyword we would like to search
     search_keyword = 'AFL'
