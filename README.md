@@ -40,7 +40,7 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 │   │   │   │   ├── tasks               # 
 │   │   │   │   │   └── main.yaml       # 
 │   │   │   │   └── templates           #
-│   │   │   │   │   └── xxx.xxx.j2      # 
+│   │   │   │       └── xxx.xxx.j2      # 
 │   │   ├── openstack                   # where all the setting up MRC tasks are listed 
 │   │   │   ├── ...                     # ⬆
 │   │   │   └── remove                  # where all the uninstall server tasks are listed
