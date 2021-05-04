@@ -17,8 +17,9 @@ city_geo = {'Melbourne': '-37.813611,144.963056,60km', 'Sydney': '-33.865143,151
 # 查询出现在某个 city 中的所有 带有 keyword 的推文数量
 # return 统计得到的数字
 def count_keyword_in_different_cities(keyword, city, max_num, api):
-    filename = city + '_AFL_data.txt'
-    file_handle=open(filename,mode='a')
+    filename = city + '_AFL_data.json'
+    file_handle=open(filename,mode='w')
+    result_list = []
 
     count = 0
     # 定义 max_id 以实现不断查询
@@ -36,6 +37,8 @@ def count_keyword_in_different_cities(keyword, city, max_num, api):
 
         # 如果查询结果为空，则结束循环
         if (len(search_results) == 0):
+            dict_result = {'keyword': keyword, 'city': city, 'results':result_list}
+            json.dump(dict_result, file_handle)
             return count
 
         # Update max_id --- max_id 是最后一条查询结果的 _id
@@ -45,15 +48,20 @@ def count_keyword_in_different_cities(keyword, city, max_num, api):
         for tweet in search_results:
             # 如果这条的 id 和 上一条一样，证明已经找到了所有 tweets, return 即可
             if (tweet._json['id'] == prev_id):
+                dict_result = {'keyword': keyword, 'city': city, 'results':result_list}
+                json.dump(dict_result, file_handle)
                 return count
 
             # tweet 还是一个对象,推特的相关信息在 tweer._json 里
             #这里是检测消息是否含有'text'键,并不是所有 TWitter 返回的所有对象都是消息(有些可能是用来删除消息或者其他内容的动作--这个没有确认),区别就是消息对象中是否含有'text'键
             if 'text' in tweet._json:
                 count += 1
-                file_handle.write('count: ' + str(count) + '\n' + 'id: ' + tweet._json['id_str'] + '\n' + 'Created at: ' + tweet._json['created_at'] + '\nTweet text: ' + tweet._json['text'] + '\n\n')
+                dict_search = {'id': tweet._json['id_str'], 'created': tweet._json['created_at'], 'text': tweet._json['text']}
+                result_list.append(dict_search)
+                # print(result_list)
+                # file_handle.write('{\"id\":' + str(tweet._json['id_str']) + ',' + '\"created\":' + str(tweet._json['created_at']) + ',' + '\"text\":' + str(tweet._json['text']) + '},')
                 prev_id = tweet._json['id']
-        
+
     return count
 
 def main():
