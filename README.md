@@ -26,10 +26,10 @@
 Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be determined later.
 
 > The ansible folder uses the Ansible playbook folder strucure. 
-> Each tasks must have a sub folders: *tasks*; and in *tasks*, a *main.yaml* file will be put here.
-> If a *templates* folder exists (as shown in *couchdb*), then a J2 template is used to generate required files.
+> Each tasks must have a sub folder: *tasks*; and in *tasks*, a *main.yaml* file will be put here.
+> If a *templates* folder exists (as shown in *ansible/roles/deploy/couchdb*), then a J2 template is used to generate required files.
 > J2 template is required because some files need to use the Ansible inventory variables.
-> We need to replace the files in the templates with those variables, then run it/copy it to somewhere else.
+> We need to replace the fileds in the templates with those variables, then run it/copy it to somewhere else.
 
 ```
 .
