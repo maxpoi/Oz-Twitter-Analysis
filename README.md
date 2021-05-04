@@ -33,33 +33,35 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 
 ```
 .
-├── ansible                     # The folder of all ansible scripts (for setting up & deploy server)
-│   ├── roles                   # The ansible roles folder, listing all the tasks
-│   │   ├── deploy              # where all the deploy tasks are listed 
-│   │   │   └── couchdb         #
-│   │   │   │   ├── tasks       # 
-│   │   │   │   └── templates   #
-│   │   ├── openstack           # where all the setting up MRC tasks are listed 
-│   │   │   ├── ...             # ⬆
-│   │   │   └── remove          # where all the uninstall server tasks are listed
-│   │   │   │   ├── ...         # ⬆
-│   │   └── set-up              # where all the setting up each individual instance server tasks are listed
-│   │   │   ├── ...             # ⬆
-│   │   │   └── ...             # ⬆
-│   ├── vars                    # A folder listing all used Ansible environment variables
-│   ├── hosts                   # A customized Ansible inventory file; passed into playbook by using -i command
-│   ├── main.yaml               # The main Ansible playbook file. It uses all the roles except the ones in the remove folder
-│   ├── uninstall_server.yaml   # If this playbook is run, all MRC instances, security groups, volumes will be removed
-├── app                         # The folder for the actual application
-│   ├── backend                 # 
-│   │   ├── api                 # 
-│   │   ├── crawler             #
-│   │   └── mapreduce           # Unit tests
-│   └── frontend                # 
-├── Twitter-API-Interfaces      #
-├── .all-contributorsec         # Automate generated file by all-contributor plugin
-├── openrc.sh                   # An environment set up bash file; used in run.sh
-├── run.sh                      # The main shell script. Must be run at the very start
+├── ansible                             # The folder of all ansible scripts (for setting up & deploy server)
+│   ├── roles                           # The ansible roles folder, listing all the tasks
+│   │   ├── deploy                      # where all the deploy tasks are listed 
+│   │   │   └── couchdb                 #
+│   │   │   │   ├── tasks               # 
+│   │   │   │   │   └── main.yaml       # 
+│   │   │   │   ├── templates           #
+│   │   │   │   │   └── xxx.xxx.j2      # 
+│   │   ├── openstack                   # where all the setting up MRC tasks are listed 
+│   │   │   ├── ...                     # ⬆
+│   │   │   ├── remove                  # where all the uninstall server tasks are listed
+│   │   │   │   └── ...                 # ⬆
+│   │   └── set-up                      # where all the setting up each individual instance server tasks are listed
+│   │   │   ├── ...                     # ⬆
+│   │   │   └── ...                     # ⬆
+│   ├── vars                            # A folder listing all used Ansible environment variables
+│   ├── hosts                           # A customized Ansible inventory file; passed into playbook by using -i command
+│   ├── main.yaml                       # The main Ansible playbook file. It uses all the roles except the ones in the remove folder
+│   ├── uninstall_server.yaml           # If this playbook is run, all MRC instances, security groups, volumes will be removed
+├── app                                 # The folder for the actual application
+│   ├── backend                         # 
+│   │   ├── api                         # 
+│   │   ├── crawler                     #
+│   │   └── mapreduce                   # 
+│   └── frontend                        # 
+├── Twitter-API-Interfaces              # 
+├── .all-contributorsec                 # Automate generated file by all-contributor plugin
+├── openrc.sh                           # An environment set up bash file; used in run.sh
+├── run.sh                              # The main shell script. Must be run at the very start
 └── README.md
 ```
 
