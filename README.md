@@ -73,6 +73,4 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
       1. change *ansible_ssh_private_key_file* to your private key path
   4. Connect AnyConnet
   5. In terminal, run *"sh ./run.sh"*
-  6. Open run.sh
-      1. Comment out 1st and 2nd commands.
     
