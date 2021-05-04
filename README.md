@@ -39,11 +39,12 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 │   │   │   └── couchdb                 #
 │   │   │   │   ├── tasks               # 
 │   │   │   │   │   └── main.yaml       # 
-│   │   │   │   ├── templates           #
+│   │   │   │   └── templates           #
 │   │   │   │   │   └── xxx.xxx.j2      # 
 │   │   ├── openstack                   # where all the setting up MRC tasks are listed 
 │   │   │   ├── ...                     # ⬆
-│   │   │   ├── remove                  # where all the uninstall server tasks are listed
+│   │   │   └── remove                  # where all the uninstall server tasks are listed
+│   │   │   │   ├── ...                 # ⬆
 │   │   │   │   └── ...                 # ⬆
 │   │   └── set-up                      # where all the setting up each individual instance server tasks are listed
 │   │   │   ├── ...                     # ⬆
@@ -51,7 +52,7 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 │   ├── vars                            # A folder listing all used Ansible environment variables
 │   ├── hosts                           # A customized Ansible inventory file; passed into playbook by using -i command
 │   ├── main.yaml                       # The main Ansible playbook file. It uses all the roles except the ones in the remove folder
-│   ├── uninstall_server.yaml           # If this playbook is run, all MRC instances, security groups, volumes will be removed
+│   └── uninstall_server.yaml           # If this playbook is run, all MRC instances, security groups, volumes will be removed
 ├── app                                 # The folder for the actual application
 │   ├── backend                         # 
 │   │   ├── api                         # 
