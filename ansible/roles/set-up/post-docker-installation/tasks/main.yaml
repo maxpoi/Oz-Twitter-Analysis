@@ -12,7 +12,7 @@
 - name: Add ubuntu to docker group
   become: yes
   user:
-    name: ubuntu
+    name: "{{ ansible_user }}"
     groups: docker
     append: yes
 
@@ -29,7 +29,6 @@
     src: http-proxy.conf
     dest: /etc/systemd/system/docker.service.d/http-proxy.conf
 
-
 # https://stackoverflow.com/questions/42040688/docker-daemon-start-using-ansible
 - name: Restart docker
   become: yes
@@ -38,16 +37,16 @@
     state: restarted
     daemon_reload: yes
 
-# - name: Check proxy's are set
-#   become: yes
-#   shell:
-#     cmd: systemctl show --property=Environment docker
+# After couple days of working correctly,
+# somehow restart docker is not enough
+# I have to reconnect the server to be fully functional
+# a strange bug...
+- name: Reset ssh connection to allow user changes to affect new group
+  meta: reset_connection
 
-# # https://www.codenotary.com/blog/automatic-deployment-of-a-docker-compose-stack-using-ansible/
-# - name: Remove previous images
-#   become: yes
-#   shell:
-#     cmd: docker images -a -q|xargs -r docker rmi -f
+# comment out the rest if you want to delete existing docker
+# but must make sure there is at least 1 existing docker
+# otherwise will raise error
 
 # # https://stackoverflow.com/questions/62184206/ansible-plybook-script-for-destroy-all-containers-and-remove-images-from-remote
 # - name: List all containers
@@ -69,3 +68,8 @@
 #     docker rm $(docker ps -a -q);
 #   when: containers_list.containers != 0
 
+# # https://www.codenotary.com/blog/automatic-deployment-of-a-docker-compose-stack-using-ansible/
+# - name: Remove previous images
+#   become: yes
+#   shell:
+#     cmd: docker images -a -q|xargs -r docker rmi -f

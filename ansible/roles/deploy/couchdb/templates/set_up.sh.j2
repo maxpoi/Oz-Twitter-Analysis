@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+export node="{{ ansible_host }}"
+export masternode="{{ master }}"
+export size="{{ couch.num_nodes }}"
+export user="{{ couch.user }}"
+export pass="{{ couch.pwd }}"
+export VERSION="{{ couch.version }}"
+export cookie="{{ couch.cookie }}"
+
+docker pull ibmcom/couchdb3:${VERSION}
+
+docker create\
+    --name couchdb${node}\
+    --env COUCHDB_USER=${user}\
+    --env COUCHDB_PASSWORD=${pass}\
+    --env COUCHDB_SECRET=${cookie}\
+    --env ERL_FLAGS="-setcookie \"${cookie}\" -name \"couchdb@${node}\""\
+    ibmcom/couchdb3:${VERSION}
+
+declare -a conts=(`docker ps --all | grep couchdb | cut -f1 -d' ' | xargs -n${size} -d'\n'`)
+
+for cont in "${conts[@]}"; do docker start ${cont}; done
+
+if [ "$node" != "$masternode" ] ; then 
+    curl -XPOST "http://${user}:${pass}@${masternode}:5984/_cluster_setup" \
+        --header "Content-Type: application/json"\
+        --data "{\"action\": \"enable_cluster\", \"bind_address\":\"0.0.0.0\",\
+                \"username\": \"${user}\", \"password\":\"${pass}\", \"port\": \"5984\",\
+                \"remote_node\": \"${node}\", \"node_count\": \"${size}\",\
+                \"remote_current_user\":\"${user}\", \"remote_current_password\":\"${pass}\"}"
+fi
+
+if [ "$node" != "$masternode" ] ; then 
+    curl -XPOST "http://${user}:${pass}@${masternode}:5984/_cluster_setup"\
+      --header "Content-Type: application/json"\
+      --data "{\"action\": \"add_node\", \"host\":\"${node}\",\
+             \"port\": \"5984\", \"username\": \"${user}\", \"password\":\"${pass}\"}"
+fi
+
+curl -XGET "http://${user}:${pass}@${masternode}:5984/"
+
+curl -XPOST "http://${user}:${pass}@${masternode}:5984/_cluster_setup"\
+    --header "Content-Type: application/json" --data "{\"action\": \"finish_cluster\"}"
+
+curl -X GET "http://${user}:${pass}@${node}:5984/_membership"
+
+curl -XPUT "http://${user}:${pass}@${masternode}:5984/twitter"
+curl -X GET "http://${user}:${pass}@${node}:5984/_all_dbs"

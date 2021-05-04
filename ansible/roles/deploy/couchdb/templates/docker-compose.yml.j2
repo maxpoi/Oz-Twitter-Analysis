@@ -3,27 +3,33 @@
 # link to workshop demonstration:
 # https://github.com/AURIN/comp90024/blob/master/couchdb/macos/docker-compose.yml
 
-version: "3"
+version: "3.9"
 services:
   # because we are not runnig on a single node,
   # so no master/slave nodes.
   couchdb:
-    image: "ibmcom/couchdb3:3.0.0"
-    restart: always
+    image: "{{ couch.image }}:{{ couch.version }}"
+    # restart: always
     ports:
       - "5984:5984"
       - "5986:5986"
       - "4369:4369"
       - "9100-9200:9100-9200"
     volumes:
-      - ./data/couch:/opt/couchdb/data
+    #   - type: bind
+    #     source: couchdb_data
+    #     target: /opt/couchdb/data
+      # - /etc/passwd:/etc/passwd:ro
+      # - /etc/group:/etc/group:ro
+      - "{{ couch.volume_path }}:/opt/couchdb/data"
     environment:
-      - COUCHDB_USER={{ couch.user }}
-      - COUCHDB_PASSWORD={{ couch.pwd }}
-      - NODENAME=couchdb@{{ ansible_host }}
-    container_name: couchdb
-    networks:
-      - couchdb_nw
+      - "COUCHDB_USER={{ couch.user }}"
+      - "COUCHDB_PASSWORD={{ couch.pwd }}"
+      - "COUCHDB_SECRET= {{ couch.secret }}"
+      - "NODENAME={{ ansible_host }}"
+    container_name: "{{ couch.name }}"
+    command: "-setcookie {{ couch.cookie }}"
 
-networks:
-  couchdb_nw:
+# volumes:
+#   data:
+#     external: true

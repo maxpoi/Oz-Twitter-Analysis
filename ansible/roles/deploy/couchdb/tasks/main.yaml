@@ -16,12 +16,28 @@
 #       NODENAME: "{{ ansible_host }}"
 #       COUCHDB_SECRET: "{{ couchdb_cookie }}"
 
+# - name: Check ansible vars
+#   debug:
+#     msg: " {{ ansible_user }} {{ ansible_host }} {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
+# - name: Remove couch directory
+#   become: yes
+#   file:
+#     path: '{{ couch.volume_path }}'
+#     state: absent
+
+# - name: Remove couch data directory
+#   become: yes
+#   file:
+#     path: '{{ couch.dir }}'
+#     state: absent
+
 - name: Create couch directory
   become: yes
   file:
     path: '{{ couch.dir }}'
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: '{{ ansible_user }}'
+    group: docker
     recurse: yes
     state: directory
 
@@ -30,13 +46,21 @@
   template:
     src: docker-compose.yml.j2
     dest: '{{ couch.dir }}/docker-compose.yaml'
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: '{{ ansible_user }}'
+    group: docker
 
+# have to hard code this owner and group to 1000 & 0
+# if they were set to ubuntu & docker
+# somehow docker will automatically change it to 1000 & 998 when starting up
+# then permission error will araise. 
 - name: Create data directory
   become: yes
   file:
-    path: '{{ couch.dir }}/data'
+    # owner: '{{ ansible_user }}'
+    # group: docker
+    path: '{{ couch.volume_path }}'
+    owner: '1001'
+    group: '0'
     recurse: yes
     state: directory
 
@@ -45,11 +69,53 @@
     project_src: '{{ couch.dir }}'
     pull: yes
     state: present
-    remove_orphans: yes
     recreate: smart
+  register: compose_output
 
-    # https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
+- name: Print out compose output
+  debug:
+    var: compose_output
+
+# https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
 - name: Wait for a while
   wait_for:
     port: 5984
     timeout: 60
+
+# https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_info_module.html#ansible-collections-community-docker-docker-container-info-module
+- name: Check the docker container is up and running
+  docker_container_info:
+    name: '{{ couch.name }}'
+  register: result
+
+- name: Print out result
+  debug:
+    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+- name: Setup couch on each node
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_cluster_setup'
+    method: 'POST'
+    body: '{"action": "enable_cluster", "bind_address": "0.0.0.0", "username": "{{ couch.user }}", "password": "{{ couch.pwd }}", "node_count": {{ couch.num_nodes }}}'
+    body_format: json
+    force_basic_auth: yes
+  # when: "couch_cluster.json.state == 'cluster_disabled'"
+
+- name: Sleep for 10
+  wait_for:
+    port: 5984
+    timeout: 10
+
+# # Check status on first node
+# - name: Check couch status
+#   uri:
+#     url: 'http://{{ couch.user }}:{{ couch.pwd }}@127.0.0.1:5984/_cluster_setup'
+#     method: 'GET'
+#     return_content: yes
+#     force_basic_auth: yes
+#   register: couch_status
+#   until: couch_status.status == 200
+#   retries: 12
+#   delay: 5
+
+    
