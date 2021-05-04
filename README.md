@@ -23,9 +23,48 @@
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Project structure
+Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be determined later.
+
+> The ansible folder uses the Ansible playbook folder strucure. 
+> Each tasks must have a sub folders: *tasks*; and in *tasks*, a *main.yaml* file will be put here.
+> If a *templates* folder exists (as shown in *couchdb*), then a J2 template is used to generate required files.
+> J2 template is required because some files need to use the Ansible inventory variables.
+> We need to replace the files in the templates with those variables, then run it/copy it to somewhere else.
+
+```
+.
+├── ansible                     # The folder of all ansible scripts (for setting up & deploy server)
+│   ├── roles                   # The ansible roles folder, listing all the tasks
+│   │   ├── deploy              # where all the deploy tasks are listed 
+│   │   │   └── couchdb         #
+│   │   │   │   ├── tasks       # 
+│   │   │   │   └── templates   #
+│   │   ├── openstack           # where all the setting up MRC tasks are listed 
+│   │   │   ├── ...             # ⬆
+│   │   │   └── remove          # where all the uninstall server tasks are listed
+│   │   │   │   ├── ...         # ⬆
+│   │   └── set-up              # where all the setting up each individual instance server tasks are listed
+│   │   │   ├── ...             # ⬆
+│   │   │   └── ...             # ⬆
+│   ├── vars                    # A folder listing all used Ansible environment variables
+│   ├── hosts                   # A customized Ansible inventory file; passed into playbook by using -i command
+│   ├── main.yaml               # The main Ansible playbook file. It uses all the roles except the ones in the remove folder
+│   ├── uninstall_server.yaml   # If this playbook is run, all MRC instances, security groups, volumes will be removed
+├── app                         # The folder for the actual application
+│   ├── backend                 # 
+│   │   ├── api                 # 
+│   │   ├── crawler             #
+│   │   └── mapreduce           # Unit tests
+│   └── frontend                # 
+├── Twitter-API-Interfaces      #
+├── .all-contributorsec         # Automate generated file by all-contributor plugin
+├── openrc.sh                   # An environment set up bash file; used in run.sh
+├── run.sh                      # The main shell script. Must be run at the very start
+└── README.md
+```
 
 
-### How to run?
+## How to run?
   1. Open up a ***new terminal***
   1. Open ansible/hosts
       1. change *ansible_ssh_private_key_file* to your private key path
