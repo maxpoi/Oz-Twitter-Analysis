@@ -12,7 +12,7 @@ from twitter_api_config import twitter_api
 # Define the geo restriction for cities
 city_geo = {'Melbourne': '-37.813611,144.963056,60km', 'Sydney': '-33.865143,151.209900,63km',
             'Canberra': '-35.282001,149.128998,16km', 'Adelaide': '-34.928497,138.600739,32km', 
-            'Brisbane': '-27.469770,153.025131,71km', 'Perth': '-31.950527, 115.860458,45km'}
+            'Brisbane': '-27.469770,153.025131,71km', 'Perth': '-31.950527,115.860458,45km'}
 
 # 查询出现在某个 city 中的所有 带有 keyword 的推文数量
 # return 统计得到的数字
