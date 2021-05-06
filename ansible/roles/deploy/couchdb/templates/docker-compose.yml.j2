@@ -9,7 +9,7 @@ services:
   # so no master/slave nodes.
   couchdb:
     image: "{{ couch.image }}:{{ couch.version }}"
-    # restart: always
+    restart: always
     ports:
       - "5984:5984"
       - "5986:5986"
@@ -26,9 +26,9 @@ services:
       - "COUCHDB_USER={{ couch.user }}"
       - "COUCHDB_PASSWORD={{ couch.pwd }}"
       - "COUCHDB_SECRET= {{ couch.secret }}"
-      - "NODENAME={{ ansible_host }}"
+      - "COUCHDB_NODENAME={{ ansible_host }}"
+      - ERL_FLAGS="-setcookie \"{{ couch.cookie }}\" -name \"{{ ansible_host }}\""
     container_name: "{{ couch.name }}"
-    command: "-setcookie {{ couch.cookie }}"
 
 # volumes:
 #   data:

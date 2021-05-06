@@ -17,17 +17,13 @@
     groups: COMP90024
   loop: '{{ instance_ips }}'
 
-- name: Print hosts
-  debug:
-    msg: ' {{ item }}'
-  with_inventory_hostnames:
-    - all
+- name: Register master
+  add_host:
+    name: "{{ instance_ips | first }}"
+    groups: Master
 
-- name: Register master & workers
-  set_fact: 
-    master: " {{ instance_ips | first }} "
-    workers: " {{ instance_ips[1:] }} "
-    
-- name: Print master, workers
-  debug:
-    msg: "master: {{ master }}, \nworkers: {{ workers }}"
+- name: Register workers
+  add_host: 
+    name: '{{ item }}'
+    groups: Workers
+  loop: '{{ instance_ips[1:] }}'
