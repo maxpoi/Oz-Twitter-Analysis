@@ -50,6 +50,7 @@ def count_keyword_in_different_cities(keyword, city, max_num, api):
         # 如果查询结果为空，则结束循环
         if (len(search_results) == 0):
             # dict_result = {'keyword': keyword, 'city': city, 'results':result_list}
+            print(food, city, count)
             return result_list
 
         # Update max_id --- max_id 是最后一条查询结果的 _id
@@ -60,7 +61,7 @@ def count_keyword_in_different_cities(keyword, city, max_num, api):
             # 如果这条的 id 和 上一条一样，证明已经找到了所有 tweets, return 即可
             if (tweet._json['id'] == prev_id):
                 # dict_result = {'keyword': keyword, 'city': city, 'results':result_list}
-                print(count)
+                print(food, city, count)
                 return result_list
 
             # tweet 还是一个对象,推特的相关信息在 tweer._json 里
@@ -72,7 +73,8 @@ def count_keyword_in_different_cities(keyword, city, max_num, api):
                 # print(result_list)
                 # file_handle.write('{\"id\":' + str(tweet._json['id_str']) + ',' + '\"created\":' + str(tweet._json['created_at']) + ',' + '\"text\":' + str(tweet._json['text']) + '},')
                 prev_id = tweet._json['id']
-
+                
+    print(food, city, count)
     return count
 
 def main():
@@ -95,7 +97,7 @@ def main():
     
     for city in city_geo:
         for food in food_keyword:
-            result_list.append(count_keyword_in_different_cities(food, city, twitter_max_num, api))
+            result_list.extend(count_keyword_in_different_cities(food, city, twitter_max_num, api))
 
     json.dump(result_list, file_handle)
 
