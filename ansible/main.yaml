@@ -20,7 +20,14 @@
     - role: openstack/post-instances
     # - role: openstack-volume-snapshot
 
-
+# - name: Set Up variables
+#   hosts:
+#     - localhost
+#     - COMP90024
+#   tasks:
+#     - debug:
+#         var=hostvars[inventory_hostname]
+        
 # change hosts to COMP90024 to start the tasks
 
 - name: Set Up Dependencies On Each VM

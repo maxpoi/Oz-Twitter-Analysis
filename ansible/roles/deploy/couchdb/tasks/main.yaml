@@ -1,4 +1,7 @@
 # @author, Jiacheng Ye, 904973
+# All processes are from workshop
+# Transferred into ansible format by Jiacheng Ye
+
 ---
 
 # - name: Start a container with a couchdb node
@@ -32,65 +35,89 @@
 #     path: '{{ couch.dir }}'
 #     state: absent
 
-- name: Create couch directory
-  become: yes
-  file:
-    path: '{{ couch.dir }}'
-    owner: '{{ ansible_user }}'
-    group: docker
-    recurse: yes
-    state: directory
+# ----- main parts, ignore parts above -----
 
-- name: Upload compose file by using j2
-  become: yes
-  template:
-    src: docker-compose.yml.j2
-    dest: '{{ couch.dir }}/docker-compose.yaml'
-    owner: '{{ ansible_user }}'
-    group: docker
+# - name: Create couch directory
+#   become: yes
+#   file:
+#     path: '{{ couch.dir }}'
+#     owner: '{{ ansible_user }}'
+#     group: docker
+#     recurse: yes
+#     state: directory
 
-# have to hard code this owner and group to 1000 & 0
-# if they were set to ubuntu & docker
-# somehow docker will automatically change it to 1000 & 998 when starting up
-# then permission error will araise. 
-- name: Create data directory
-  become: yes
-  file:
-    # owner: '{{ ansible_user }}'
-    # group: docker
-    path: '{{ couch.volume_path }}'
-    owner: '1001'
-    group: '0'
-    recurse: yes
-    state: directory
+# - name: Upload compose file by using j2
+#   become: yes
+#   template:
+#     src: docker-compose.yml.j2
+#     dest: '{{ couch.dir }}/docker-compose.yaml'
+#     owner: '{{ ansible_user }}'
+#     group: docker
 
-- name: run docker compose
-  docker_compose:
-    project_src: '{{ couch.dir }}'
-    pull: yes
-    state: present
-    recreate: smart
-  register: compose_output
+# # have to hard code this owner and group to 1000 & 0
+# # if they were set to ubuntu & docker
+# # somehow docker will automatically change it to 1000 & 998 when starting up
+# # then permission error will araise. 
+# # This hardcoding problem is well discussed with Yao Pan. 
+# # He is aware of this issue and comfirms that it is the only solution.
+# - name: Create data directory
+#   become: yes
+#   file:
+#     # owner: '{{ ansible_user }}'
+#     # group: docker
+#     path: '{{ couch.volume_path }}'
+#     owner: '1001'
+#     group: '0'
+#     recurse: yes
+#     state: directory
 
-- name: Print out compose output
+# - name: run docker compose
+#   docker_compose:
+#     project_src: '{{ couch.dir }}'
+#     pull: yes
+#     state: present
+#     recreate: smart
+#   register: compose_output
+
+
+# # https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
+# - name: Wait for a while
+#   wait_for:
+#     timeout: 60
+
+# # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_info_module.html#ansible-collections-community-docker-docker-container-info-module
+# - name: Check the docker container is up and running
+#   docker_container_info:
+#     name: '{{ couch.name }}'
+#   register: result
+
+# - name: Print out result
+#   debug:
+#     msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+- name: Register master node ip from inventory for convinience
+  set_fact:
+    master: "{{ groups['Master'][0] }}"
+
+- name: Print out master node
   debug:
-    var: compose_output
+    msg: "master is on: {{ master }}"
+  when: master is defined
 
-# https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
-- name: Wait for a while
-  wait_for:
-    port: 5984
-    timeout: 60
-
-# https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_info_module.html#ansible-collections-community-docker-docker-container-info-module
-- name: Check the docker container is up and running
-  docker_container_info:
-    name: '{{ couch.name }}'
-  register: result
-
-- name: Print out result
-  debug:
-    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+# Check status a couchdb
+# Somehow docker compose automatically sets up cluster.
+# check if that is the case, and resgister the result
+# if already set up clusters, skip next one.
+- name: Check cluster status
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_cluster_setup'
+    method: 'GET'
+    return_content: yes
+    force_basic_auth: yes
+  register: couch_cluster
+  until: couch_cluster.status == 200
+  retries: 5
+  delay: 10
 
 - name: Setup couch on each node
   uri:
@@ -99,23 +126,56 @@
     body: '{"action": "enable_cluster", "bind_address": "0.0.0.0", "username": "{{ couch.user }}", "password": "{{ couch.pwd }}", "node_count": {{ couch.num_nodes }}}'
     body_format: json
     force_basic_auth: yes
-  # when: "couch_cluster.json.state == 'cluster_disabled'"
+  when: "couch_cluster.json.state == 'cluster_disabled'"
 
 - name: Sleep for 10
   wait_for:
-    port: 5984
     timeout: 10
 
-# # Check status on first node
-# - name: Check couch status
-#   uri:
-#     url: 'http://{{ couch.user }}:{{ couch.pwd }}@127.0.0.1:5984/_cluster_setup'
-#     method: 'GET'
-#     return_content: yes
-#     force_basic_auth: yes
-#   register: couch_status
-#   until: couch_status.status == 200
-#   retries: 12
-#   delay: 5
+- name: Add nodes to cluster (1)
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984/_cluster_setup'
+    method: 'POST'
+    body: '{"action": "enable_cluster", "bind_address": "0.0.0.0", "username": "{{ couch.user }}", "password": "{{ couch.pwd }}", "port": 5984, "node_count": {{ couch.num_nodes }}, "remote_node": "{{ ansible_host }}", "remote_current_user": "{{ couch.user }}", "remote_current_password": "{{ couch.pwd }}" }'
+    body_format: json
+    force_basic_auth: yes
+    # default is 200 = success, change to 201 for couchdb cluster
+    status_code: 201
+  when: "ansible_host != master"
 
-    
+- name: Add nodes to cluster (2)
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984/_cluster_setup'
+    method: 'POST'
+    body: '{"action": "add_node", "host":"{{ ansible_host }}", "port": 5984, "username": "{{ couch.user }}", "password":"{{ couch.pwd }}", "singlenode": false}'
+    body_format: json
+    force_basic_auth: yes
+    status_code: 201
+  when: "ansible_host != master"
+
+- name: Sleep for 10
+  wait_for:
+    timeout: 10
+
+- name: Empty request to avoid an error message when finishing the cluster setup
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984'
+    method: 'GET'
+    force_basic_auth: yes
+
+- name: Finish cluster setup
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984/_cluster_setup'
+    method: 'POST'
+    body: '{"action": "finish_cluster"}'
+    body_format: json
+    force_basic_auth: yes
+    status_code: 201
+  when: "ansible_host == master"
+
+- name: Check couch cluster setup
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_cluster_setup'
+    method: 'GET'
+    return_content: yes
+    force_basic_auth: yes
