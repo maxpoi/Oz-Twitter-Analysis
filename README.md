@@ -72,4 +72,11 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
       1. change *ansible_ssh_private_key_file* to your private key path
   4. Connect AnyConnet
   5. In terminal, run *"sh ./run.sh"*
+
+## Host IPs
+master: [172.26.128.169]
+
+worker: [172.26.133.31]
+
+worker: [172.26.132.238]
     

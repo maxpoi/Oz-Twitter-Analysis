@@ -37,63 +37,63 @@
 
 # ----- main parts, ignore parts above -----
 
-# - name: Create couch directory
-#   become: yes
-#   file:
-#     path: '{{ couch.dir }}'
-#     owner: '{{ ansible_user }}'
-#     group: docker
-#     recurse: yes
-#     state: directory
+- name: Create couch directory
+  become: yes
+  file:
+    path: '{{ couch.dir }}'
+    owner: '{{ ansible_user }}'
+    group: docker
+    recurse: yes
+    state: directory
 
-# - name: Upload compose file by using j2
-#   become: yes
-#   template:
-#     src: docker-compose.yml.j2
-#     dest: '{{ couch.dir }}/docker-compose.yaml'
-#     owner: '{{ ansible_user }}'
-#     group: docker
+- name: Upload compose file by using j2
+  become: yes
+  template:
+    src: docker-compose.yml.j2
+    dest: '{{ couch.dir }}/docker-compose.yaml'
+    owner: '{{ ansible_user }}'
+    group: docker
 
-# # have to hard code this owner and group to 1000 & 0
-# # if they were set to ubuntu & docker
-# # somehow docker will automatically change it to 1000 & 998 when starting up
-# # then permission error will araise. 
-# # This hardcoding problem is well discussed with Yao Pan. 
-# # He is aware of this issue and comfirms that it is the only solution.
-# - name: Create data directory
-#   become: yes
-#   file:
-#     # owner: '{{ ansible_user }}'
-#     # group: docker
-#     path: '{{ couch.volume_path }}'
-#     owner: '1001'
-#     group: '0'
-#     recurse: yes
-#     state: directory
+# have to hard code this owner and group to 1000 & 0
+# if they were set to ubuntu & docker
+# somehow docker will automatically change it to 1000 & 998 when starting up
+# then permission error will araise. 
+# This hardcoding problem is well discussed with Yao Pan. 
+# He is aware of this issue and comfirms that it is the only solution.
+- name: Create data directory
+  become: yes
+  file:
+    # owner: '{{ ansible_user }}'
+    # group: docker
+    path: '{{ couch.volume_path }}'
+    owner: '1001'
+    group: '0'
+    recurse: yes
+    state: directory
 
-# - name: run docker compose
-#   docker_compose:
-#     project_src: '{{ couch.dir }}'
-#     pull: yes
-#     state: present
-#     recreate: smart
-#   register: compose_output
+- name: run docker compose
+  docker_compose:
+    project_src: '{{ couch.dir }}'
+    pull: yes
+    state: present
+    recreate: smart
+  register: compose_output
 
 
-# # https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
-# - name: Wait for a while
-#   wait_for:
-#     timeout: 60
+# https://github.com/AURIN/comp90024/blob/master/couchdb/macos/run.sh
+- name: Wait for a while
+  wait_for:
+    timeout: 60
 
-# # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_info_module.html#ansible-collections-community-docker-docker-container-info-module
-# - name: Check the docker container is up and running
-#   docker_container_info:
-#     name: '{{ couch.name }}'
-#   register: result
+# https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_info_module.html#ansible-collections-community-docker-docker-container-info-module
+- name: Check the docker container is up and running
+  docker_container_info:
+    name: '{{ couch.name }}'
+  register: result
 
-# - name: Print out result
-#   debug:
-#     msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+- name: Print out result
+  debug:
+    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
 
 - name: Register master node ip from inventory for convinience
   set_fact:
