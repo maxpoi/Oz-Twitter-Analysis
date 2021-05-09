@@ -6,10 +6,10 @@ import requests
 design = {
     "_id": "_design/design",
     "views": {
-        # "afl": {
-        #     "map": "function (doc) {\n  emit(doc.city, doc.id);\n}",
-        #     "reduce": "_count"
-        # },
+        "afl": {
+            "map": "function (doc) {\n  emit(doc.city, doc.id);\n}",
+            "reduce": "_count"
+        },
         "vaccine":{
             "map": "function(doc) { emit([doc.city, doc.sentiment_score], doc.id) }",
             "reduce": "_count"
