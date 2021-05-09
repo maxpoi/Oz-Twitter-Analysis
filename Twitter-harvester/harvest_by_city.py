@@ -66,7 +66,7 @@ def main():
     search_keyword = ''
 
     # 定义最大查询 twitter 数量
-    twitter_max_num = 1000000
+    twitter_max_num = 10000000
 
     server = couchdb.Server(Config.COUCHDB_SERVER)
     db = server.create(Config.COUCHDB_DATABASE)
