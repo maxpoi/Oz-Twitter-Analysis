@@ -32,10 +32,10 @@ def count_keyword_in_different_states(keyword, state, max_num, api, db):
     for i in range(0, int(max_num/100)):
         # 第一次执行，没有 max_id 字段，调用无 max_id 的 api.search
         if (i == 0):
-            search_results = api.search(q = keyword, geocode = state_geo[city], count = 100)
+            search_results = api.search(q = keyword, geocode = state_geo[state], count = 100)
         # 后续执行，有 max_id 字段，通过 max_id 使其返回不重复的查询结果
         else:
-            search_results = api.search(q = keyword, geocode = state_geo[city], max_id = max_id, count = 100)
+            search_results = api.search(q = keyword, geocode = state_geo[state], max_id = max_id, count = 100)
 
         # 如果查询结果为空，则结束循环
         if (len(search_results) == 0):
@@ -74,7 +74,7 @@ def main():
     twitter_max_num = 2000000
 
     server = couchdb.Server(Config.COUCHDB_SERVER)
-    if (server[Config.COUCHDB_DATABASE] == None):
+    if (not server.__contains__(Config.COUCHDB_DATABASE)):
         db = server.create(Config.COUCHDB_DATABASE)
     db = server[Config.COUCHDB_DATABASE]
 
