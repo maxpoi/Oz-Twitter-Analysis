@@ -1,0 +1,11 @@
+# @author, Jiacheng Ye, 904973
+# https://docs.docker.com/compose/gettingstarted/
+
+version: "3.9"
+services:
+  harvest:
+    build: .
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/data

@@ -5,12 +5,12 @@ availability_zone: melbourne-qh2-uom
 
 # Volume
 volumes:
-  - vol_name: data-0@instance-server-0
-    vol_size: 80
-  - vol_name: data-1@instance-server-1
-    vol_size: 60
-  - vol_name: data-2@instance-server-2
-    vol_size: 60
+  - vol_name: data@instance-server-0
+    vol_size: 180
+  - vol_name: data@instance-server-1
+    vol_size: 150
+  - vol_name: data@instance-server-2
+    vol_size: 150
 
 # Security group
 security_groups:
@@ -50,16 +50,22 @@ security_groups:
     port_range_min: 9100
     port_range_max: 9200
     remote_ip_prefix: 0.0.0.0/0
+  - name: harvest
+    description: port for harvest connections
+    protocol: tcp
+    port_range_min: 8001
+    port_range_max: 8001
+    remote_ip_prefix: 0.0.0.0/0
 
 
 # Instance
 instances:
   - name: instance-server-0
-    volumes: ['data-0@instance-server-0']
+    volumes: ['data@instance-server-0']
   - name: instance-server-1
-    volumes: ['data-1@instance-server-1']
+    volumes: ['data@instance-server-1']
   - name: instance-server-2
-    volumes: ['data-2@instance-server-2']
+    volumes: ['data@instance-server-2']
 
 instance:
   # ubuntu 20.04 LTS
