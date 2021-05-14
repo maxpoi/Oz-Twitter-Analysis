@@ -1,6 +1,10 @@
-import json
+import json, requests, sys
+
+from os.path import dirname, abspath
+parent_dir = dirname(dirname(abspath(__file__)))
+sys.path.append(parent_dir)
+
 from couchdb_config import Config
-import requests
 
 def main():
     # if want to add new view, add it in "views" with view_name

@@ -1,7 +1,11 @@
-import couchdb
-import json
+import couchdb, json, sys
+
+from os.path import dirname, abspath
+parent_dir = dirname(dirname(abspath(__file__)))
+sys.path.append(parent_dir)
+
 from couchdb_config import Config
-from sentiment_analysis import calculate_sentiment_scores
+from utils.sentiment_analysis import calculate_sentiment_scores
 
 data_base1 = [["scenario1_afl", "AFL_twitter_data.json"], ["scenario2_food", "food_twitter_data.json"],
               ["scenario3_5g", "5G_twitter_data.json"], ["scenario4_vaccine", "vaccine_twitter_data.json"]]

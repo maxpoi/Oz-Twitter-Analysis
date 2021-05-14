@@ -1,6 +1,10 @@
-import json
+import json, requests, sys
+
+from os.path import dirname, abspath
+parent_dir = dirname(dirname(abspath(__file__)))
+sys.path.append(parent_dir)
+
 from couchdb_config import Config
-import requests
 
 get_view_command = "http://{user}:{password}@{host}:{port}/{database}/_design/{design_doc}/_view/{view_name}?group_level={group_level}"
 

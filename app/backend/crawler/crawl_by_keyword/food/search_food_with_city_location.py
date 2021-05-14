@@ -5,8 +5,12 @@
 # APIs reference: https://docs.tweepy.org/en/latest/api.html#api-reference
 # https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
 
-import tweepy
-import json
+import tweepy, json, sys
+
+from os.path import dirname, abspath
+grandparent_dir = dirname(dirname(dirname(abspath(__file__))))
+sys.path.append(grandparent_dir)
+
 from twitter_api_config import twitter_api
 
 # Define the geo restriction for cities
