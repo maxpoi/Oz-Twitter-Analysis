@@ -20,7 +20,7 @@ from couchdb_config import Config
 state_geo = {'VIC': '-37.471310,144.785156,270km', 'SA': '-30.000233,136.209152,560km'}
 
 # Search all twitters with keyword in a certain State
-def count_keyword_in_different_states(keyword, state, max_num, api, db):
+def count_keyword_in_different_states(keyword, state, api, db):
 
     count = 0
     # Define max_id in order to achieve getting non-repetitive data
@@ -29,7 +29,7 @@ def count_keyword_in_different_states(keyword, state, max_num, api, db):
 
     # Because of twitter API limits the maximum number of returns to 100 at a time, 
     # so use max_id field restricts the content returned to be different each time.
-    for i in range(0, int(max_num/100)):
+    for i in range(0, float('inf')):
         # For the first time, there is no max_id field, so call api.search() without max_id
         if (i == 0):
             search_results = api.search(q = keyword, geocode = state_geo[state], count = 100)
@@ -73,9 +73,6 @@ def main():
     # The keyword we would like to search
     search_keyword = ''
 
-    # Define the max amount of twitter searched
-    twitter_max_num = 2000000
-
     # Define the name of CouchDB Database
     COUCHDB_DATABASE = "twitter_raw_data"
     # Get the server handle
@@ -89,7 +86,7 @@ def main():
     count = 0
     
     for state in state_geo:
-        count += count_keyword_in_different_states(search_keyword, state, twitter_max_num, api, db)
+        count += count_keyword_in_different_states(search_keyword, state, api, db)
     
     print ('Total Count:', count)
      
