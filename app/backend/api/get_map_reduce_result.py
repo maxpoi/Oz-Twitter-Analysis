@@ -40,5 +40,5 @@ def main():
     print("5g:", get_5g())
     print("vaccine:", get_vaccine())
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
