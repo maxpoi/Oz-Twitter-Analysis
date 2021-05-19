@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CCC Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+</head>
+
+<body>
+    <div class="title">
+        <h1>CCC Project</h1>
+    </div>
+    <div class="container">
+        <div class="scenario">
+            <button type="button" class="collapsible">AFL Discussion Amount</button>
+            <div class="content">
+                <p><a href="/scenario1_afl">Twitter Numbers</a></p>
+                <p><a href="/scenario1_afl/details">Age Distribution Analysis</a></p>
+            </div>
+            <button type="button" class="collapsible">Vaccine</button>
+            <div class="content">
+                <p><a href="/scenario2_vaccine">Neutral Twitter Numbers</a></p>
+                <p><a href="/scenario2_vaccine_positive">Positive Twitter Numbers</a></p>
+                <p><a href="/scenario2_vaccine_negative">Negative Twitter Numbers</a></p>
+                <p><a href="/scenario2_vaccine/details">Detailed Analysis</a></p>
+            </div>
+            <button type="button" class="collapsible">5G</button>
+            <div class="content">
+                <p><a href="/scenario3_5g">Neutral Twitter Numbers</a></p>
+                <p><a href="/scenario3_5g_positive">Positive Twitter Numbers</a></p>
+                <p><a href="/scenario3_5g_negative">Negative Twitter Numbers</a></p>
+                <p><a href="/scenario3_5g/details">Detailed Analysis</a></p>
+            </div>
+            <button type="button" class="collapsible">Restaurants</button>
+            <div class="content">
+                <p><a href="/scenario4_food_us">American Food Twitter Numbers</a></p>
+                <p><a href="/scenario4_food_cn">Chinese Food Twitter Numbers</a></p>
+                <p><a href="/scenario4_food_fr">French Food Twitter Numbers</a></p>
+                <p><a href="/scenario4_food_it">Italian Food Twitter Numbers</a></p>
+                <p><a href="/scenario4_food_jp">Japanese Food Twitter Numbers</a></p>
+                <p><a href="/scenario4_food_kr">Korean Food Twitter Numbers</a></p>
+                <p><a href="/scenario4_food/details">Detailed Analysis</a></p>
+            </div>
+            <script src = "{{ url_for('static', filename = 'button.js')}}"></script>
+        </div>
+        <div id="map"></div>
+        <script src="{{ url_for('static', filename = 'afl_map.js')}}"></script>
+        <script type="text/javascript">
+            myVar = myFunc({{data|tojson}})
+        </script>
+    </div>
+</body>
+</html>
