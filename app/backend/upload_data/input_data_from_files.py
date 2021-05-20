@@ -15,6 +15,11 @@ data_base2 = [["scenario1_afl", "AFL_from_bigTwitter.json"], ["scenario3_5g", "5
 
 data_base3 = [["twitter_raw_data", "data_from_bigTwitter.json"]]
 
+aurin_root = "AURIN/"
+AURIN_datas = ["age_distribution_for_cities.json", "age_distribution_for_states.json", 
+               "incomes_for_cities.json", "incomes_for_states.json",
+               "level_of_education_for_cities.json", "level_of_education_for_states.json"]
+
 def main():
     server = couchdb.Server(Config.COUCHDB_SERVER)
     for db_name, json_file in data_base1:
@@ -54,5 +59,24 @@ def main():
         for d in data:
             db.save(d)
     
+    db_name = "aurin"
+    if (not server.__contains__(db_name)):
+        db = server.create(db_name)
+    db = server[db_name]
+    for json_file in AURIN_datas:
+        print(aurin_root + json_file)
+        if json_file == "age_distribution_for_cities.json" or json_file == "age_distribution_for_states.json":
+            data = json.load(open(aurin_root + json_file, 'r', encoding='UTF-8'))
+            doc = dict(_id = data["_id"], _rev = data["_rev"], age_distribution = data["age_distribution"])
+            db.save(doc)
+        elif json_file == "incomes_for_cities.json" or json_file == "incomes_for_states.json":
+            data = json.load(open(aurin_root + json_file, 'r', encoding='UTF-8'))
+            doc = dict(_id = data["_id"], _rev = data["_rev"], incomes = data["incomes"])
+            db.save(doc)
+        elif json_file == "level_of_education_for_cities.json" or json_file == "level_of_education_for_states.json":
+            data = json.load(open(aurin_root + json_file, 'r', encoding='UTF-8'))
+            doc = dict(_id = data["_id"], _rev = data["_rev"], level_of_education = data["level_of_education"])
+            db.save(doc)
+
 if __name__ == '__main__':
     main()

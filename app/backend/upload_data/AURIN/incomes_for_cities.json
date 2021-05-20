@@ -1,0 +1,30 @@
+{
+    "_id": "2101d093263ee4cff47bd8cbb8edd2c2",
+    "_rev": "1-707935e893a6e9b7a318023dc12b9b78",
+    "incomes": [
+        {
+            "city": "adelaide",
+            "income_total": "40767878100",
+            "total_persons": "714795",
+            "mean_income": "57034.36"
+        },
+        {
+            "city": "melbourne",
+            "total_income": "153658000000",
+            "total_persons": "2487133",
+            "mean_income": "61800"
+        },
+        {
+            "city": "brisbane",
+            "income_total": "78081204808",
+            "total_persons": "1268074",
+            "mean_income": "61574.64"
+        },
+        {
+            "city": "sydney",
+            "income_total": "183917000000",
+            "total_persons": "2712674",
+            "mean_income": "67799.13"
+        }
+    ]
+}

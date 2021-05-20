@@ -1,0 +1,36 @@
+{
+    "_id": "6717d242b5c572b6bd66ac82c6d87f9e",
+    "_rev": "1-36cb7131c685e529c519f59e40165490",
+    "level_of_education": [
+        {
+            "state": "VIC",
+            "Bachelor_Degree_Level": "797452",
+            "Certificate_Level": "817511",
+            "Level_of_education_not_stated": "444162",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "119155",
+            "Advanced_Diploma_and_Diploma_Level": "446637",
+            "Postgraduate_Degree_Level": "259774",
+            "Level_of_education_inadequately_described": "36749"
+        },
+        {
+            "state": "QLD",
+            "Bachelor_Degree_Level": "491304",
+            "Certificate_Level": "804881",
+            "Level_of_education_not_stated": "379941",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "66623",
+            "Advanced_Diploma_and_Diploma_Level": "329812",
+            "Postgraduate_Degree_Level": "133977",
+            "Level_of_education_inadequately_described": "27120"
+        },
+        {
+            "state": "NSW",
+            "Bachelor_Degree_Level": "975597",
+            "Certificate_Level": "1099173",
+            "Level_of_education_not_stated": "579333",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "103199",
+            "Advanced_Diploma_and_Diploma_Level": "542408",
+            "Postgraduate_Degree_Level": "344132",
+            "Level_of_education_inadequately_described": "58279"
+        }
+    ]
+}
