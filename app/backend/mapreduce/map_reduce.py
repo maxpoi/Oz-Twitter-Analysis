@@ -101,8 +101,6 @@ def main():
     data=json.dumps(design_vaccine)
     )
 
-    
-
 if __name__ == '__main__':
     main()
 

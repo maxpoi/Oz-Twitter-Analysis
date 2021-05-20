@@ -1,0 +1,56 @@
+{
+    "_id": "5307ab42bfd07ebceea1ed6bc22cd2d2",
+    "_rev": "1-5905c5de6504d4236bf3129836ddc5e1",
+    "level_of_education": [
+        {
+            "city": "adelaide",
+            "Bachelor_Degree_Level": "157981",
+            "Certificate_Level": "206303",
+            "Level_of_education_not_stated": "81230",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "21635",
+            "Advanced_Diploma_and_Diploma_Level": "93770",
+            "Postgraduate_Degree_Level": "47542",
+            "Level_of_education_inadequately_described": "8815"
+        },
+        {
+            "city": "brisbane",
+            "Bachelor_Degree_Level": "289554",
+            "Certificate_Level": "353240",
+            "Level_of_education_not_stated": "157110",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "38865",
+            "Advanced_Diploma_and_Diploma_Level": "167129",
+            "Postgraduate_Degree_Level": "89870",
+            "Level_of_education_inadequately_described": "13485"
+        },
+        {
+            "city": "canberra",
+            "skilled_vocational_qualification": "20055",
+            "post_graduate_diploma": "7245",
+            "under_graduate_diploma": "9701",
+            "higher_degree": "10010",
+            "basic_vocational_qualification": "10138",
+            "bachelor degree": "38411",
+            "associate diploma": "9137"
+        },
+        {
+            "city": "melbourne",
+            "Bachelor_Degree_Level": "677586",
+            "Certificate_Level": "559097",
+            "Level_of_education_not_stated": "308044",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "94580",
+            "Advanced_Diploma_and_Diploma_Level": "347039",
+            "Postgraduate_Degree_Level": "234028",
+            "Level_of_education_inadequately_described": "29591"
+        },
+        {
+            "city": "sydney",
+            "Bachelor_Degree_Level": "752773",
+            "Certificate_Level": "590685",
+            "Level_of_education_not_stated": "335089",
+            "Graduate_Diploma_and_Graduate_Certificate_Level": "376",
+            "Advanced_Diploma_and_Diploma_Level": "365955",
+            "Postgraduate_Degree_Level": "288100",
+            "Level_of_education_inadequately_described": "41905"
+        }
+    ]
+}

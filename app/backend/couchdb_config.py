@@ -11,4 +11,4 @@ class Config(object):
     PASSWORD = 'admin'
     HOST = '172.26.128.169'
     PORT = '5984'
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    # SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
