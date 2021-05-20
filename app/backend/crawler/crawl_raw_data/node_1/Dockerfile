@@ -5,7 +5,7 @@
 
 FROM python:3.7-alpine
 
-WORKDIR /upload_data
+WORKDIR /crawler
 
 ENV http_proxy http://wwwproxy.unimelb.edu.au:8000/
 ENV https_proxy http://wwwproxy.unimelb.edu.au:8000/
@@ -20,12 +20,10 @@ RUN apk add --no-cache gcc musl-dev linux-headers openssl-dev make
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-EXPOSE 8002
-
-RUN mkdir utils/
-
-COPY ./upload_data/ .
-COPY ./utils/ utils/
+COPY ./crawler/crawl_raw_data/node_1/ .
 COPY ./couchdb_config.py .
+COPY ./crawler/twitter_api_config.py .
 
-CMD ["python", "input_data_from_files.py"]
+EXPOSE 8003
+
+CMD ["python", "harvest_by_locations_node_1.py"]

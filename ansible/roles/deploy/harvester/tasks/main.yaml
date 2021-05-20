@@ -1,0 +1,29 @@
+# @author, Jiacheng Ye, 904973
+
+---
+
+- name: Register node123
+  set_fact:
+    node1: "{{ groups['Master'][0] }}"
+    node2: "{{ groups['Worker1'][0] }}"
+    node3: "{{ groups['Worker2'][0] }}"
+
+- name: check ips
+  debug: 
+    msg: " {{ node1 }} {{ node2 }} {{ node3 }} "
+
+- name: Start a container for haverster
+  become: yes
+  command: chdir=/home/ubuntu/app/backend/ sh run_node_1.sh
+  when: "ansible_host == node1"
+
+- name: Start a container for haverster
+  become: yes
+  command: chdir=/home/ubuntu/app/backend/ sh run_node_2.sh
+  when: "ansible_host == node2"
+
+- name: Start a container for haverster
+  become: yes
+  command: chdir=/home/ubuntu/app/backend/ sh run_node_3.sh
+  when: "ansible_host == node3"
+  

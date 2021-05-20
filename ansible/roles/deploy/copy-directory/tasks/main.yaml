@@ -1,0 +1,26 @@
+# @author, Jiacheng Ye, 904973
+
+---
+
+- name: Create app directory
+  become: yes
+  file:
+    path: 'app'
+    recurse: yes
+    state: directory
+    owner: '0'
+    group: '0'
+
+# - name: Copy file
+#   become: yes
+#   command: "scp {{ playbook_dir[:-8] }}/app root@{{ ansible_host }}:~/app"
+#   become: yes
+# scp -i ~/desktop/ccc/comp90024-assignment2.pem -pr ~/desktop/ccc/comp90024-assignment-2/app ubuntu@172.26.128.169:~/
+
+- name: Copy file
+  become: yes
+  synchronize:
+    src: '{{ playbook_dir[:-8] }}/app/'
+    dest: ~/app/
+    owner: '0'
+    group: '0'

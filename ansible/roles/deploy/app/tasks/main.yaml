@@ -1,0 +1,12 @@
+# @author, Jiacheng Ye, 904973
+
+---
+
+- name: Register master node ip from inventory for convinience
+  set_fact:
+    master: "{{ groups['Master'][0] }}"
+
+- name: Start a container for app
+  become: yes
+  command: chdir=/home/ubuntu/app/ sh run.sh
+  when: "ansible_host == master"

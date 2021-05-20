@@ -27,3 +27,15 @@
     name: '{{ item }}'
     groups: Workers
   loop: '{{ instance_ips[1:] }}'
+
+- name: Register worker 1
+  add_host:
+    name: '{{ item }}'
+    groups: Worker1
+  loop: '{{ instance_ips[1:2] }}'
+
+- name: Register worker 2
+  add_host:
+    name: '{{ item }}'
+    groups: Worker2
+  loop: '{{ instance_ips[2:] }}'
