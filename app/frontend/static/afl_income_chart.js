@@ -25,10 +25,10 @@
                 ]
             )
         }
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawCountChart);
     }
 
-      function drawChart() {
+      function drawCountChart() {
         var data = google.visualization.arrayToDataTable(income_data);
         var options = {
           chart: {
@@ -48,7 +48,7 @@
         };
 
 
-        var chart = new google.charts.Bar(document.getElementById('barchart2'));
+        var chart = new google.charts.Bar(document.getElementById('barchart3'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }

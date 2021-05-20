@@ -1,6 +1,6 @@
     let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
 
-    function myFunc(data, age_data, scenario) {
+    function countChart(data, age_data, scenario) {
         if (scenario === 2){
             scenario_str = "Vaccine "
         }else{
@@ -32,10 +32,11 @@
                 ]
             )
         }
-        google.charts.setOnLoadCallback(drawChart);
+        console.log(_age_data)
+        google.charts.setOnLoadCallback(drawCountChart);
     }
 
-      function drawChart() {
+      function drawCountChart() {
         var data = google.visualization.arrayToDataTable(_age_data);
         var options = {
           chart: {
