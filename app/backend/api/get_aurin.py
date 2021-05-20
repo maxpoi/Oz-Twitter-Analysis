@@ -39,7 +39,7 @@ def get_level_of_education_for_states():
     return json.dumps(get_db('aurin', '6717d242b5c572b6bd66ac82c6d87f9e')['level_of_education'])
 
 def main():
-    print(get_level_of_education_for_states())
+    print(get_level_of_education_for_citys())
 
 # if __name__ == '__main__':
 #     main()
