@@ -2,15 +2,15 @@
 
 import nltk
 
-# try:
-#     nltk.download([
-#         "stopwords",
-#         "vader_lexicon",
-#         "averaged_perceptron_tagger",
-#         "punkt"
-#     ])
-# except:
-#     pass
+try:
+    nltk.download([
+        "stopwords",
+        "vader_lexicon",
+        "averaged_perceptron_tagger",
+        "punkt"
+    ])
+except:
+    pass
 
 import re
 from nltk.corpus import stopwords
