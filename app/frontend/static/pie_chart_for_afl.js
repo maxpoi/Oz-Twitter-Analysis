@@ -61,6 +61,6 @@ function drawChart() {
     // pieHole: 0.4,
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('piechart_afl_adelaide'));
+  var chart = new google.visualization.PieChart(document.getElementById('piechart_afl'));
   chart.draw(figure_data, options);
 }
