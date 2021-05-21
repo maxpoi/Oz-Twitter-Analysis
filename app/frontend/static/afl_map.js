@@ -76,9 +76,9 @@ function myFunc(data) {
         el.className = 'marker';
 
         el.style.backgroundImage =
-            'url(./static/assets/images/red.jpg)';
-        el.style.width = marker.properties.iconSize[0] + 'px';
-        el.style.height = marker.properties.iconSize[1] + 'px';
+            'url(./static/assets/images/AFL_logo.png)';
+        el.style.width = 3 * marker.properties.iconSize[0] + 'px';
+        el.style.height = 3 * marker.properties.iconSize[1] + 'px';
         el.style.backgroundSize = '100%';
 
         el.addEventListener('click', function () {

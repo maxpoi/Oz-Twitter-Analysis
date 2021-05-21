@@ -1,6 +1,6 @@
     let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
 
-    function countChart(data, age_data, scenario) {
+    function myFunc(data, age_data, scenario) {
         if (scenario === 2){
             scenario_str = "Vaccine "
         }else{

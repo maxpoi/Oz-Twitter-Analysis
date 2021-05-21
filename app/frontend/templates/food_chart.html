@@ -1,27 +1,194 @@
 <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">google.charts.load('current', {'packages':['bar']});</script>
-  </head>
-  <body>
-    <table>
-      <tr>
-        <td><div id="barchart1" style="width: 900px; height: 500px;">
-              <script type="text/javascript" src="{{ url_for('static', filename = 'food_chart.js')}}"></script>
-              <script type="text/javascript">
-                myVar = myFunc({{data|tojson}})
-              </script>
-        </div></td>
-      </tr>
-      <tr>
-        <td><div id="barchart2" style="width: 900px; height: 500px;">
-              <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
-              <script type="text/javascript">
-                myVar = myFunc({{data|tojson}}, {{age_data|tojson}})
-              </script>
-        </div></td>
-      </tr>
-    </table>
-    <h3><a href="/">back</a></h3>
-  </body>
+
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">google.charts.load('current', { 'packages': ['bar'] });</script>
+  <script type="text/javascript">google.charts.load('current', { 'packages': ['corechart'] });</script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <div id="barchart1" style="width: 900px; height: 500px;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'food_chart.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+      </td>
+
+      <td>
+        <script>
+          $(function () {
+            //隐藏div
+  
+            $("#piechart_food_brisbance").hide();
+            $("#piechart_food_canberra").hide();
+            $("#piechart_food_melbourne").hide();
+            $("#piechart_food_perth").hide();
+            $("#piechart_food_sydney").hide();
+            //给div添加change事件
+            $("#type").change(function () {
+              if ($(this).val() == 1) {
+                $("#piechart_food_adelaide").show();
+                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_canberra").hide();
+                $("#piechart_food_melbourne").hide();
+                $("#piechart_food_perth").hide();
+                $("#piechart_food_sydney").hide();
+              } else if ($(this).val() == 2) {
+                $("#piechart_food_adelaide").hide();
+                $("#piechart_food_brisbance").show();
+                $("#piechart_food_canberra").hide();
+                $("#piechart_food_melbourne").hide();
+                $("#piechart_food_perth").hide();
+                $("#piechart_food_sydney").hide();
+              }
+              else if ($(this).val() == 3) {
+                $("#piechart_food_adelaide").hide();
+                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_canberra").show();
+                $("#piechart_food_melbourne").hide();
+                $("#piechart_food_perth").hide();
+                $("#piechart_food_sydney").hide();
+              }
+              else if ($(this).val() == 4) {
+                $("#piechart_food_adelaide").hide();
+                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_canberra").hide();
+                $("#piechart_food_melbourne").show();
+                $("#piechart_food_perth").hide();
+                $("#piechart_food_sydney").hide();
+              }
+              else if ($(this).val() == 5) {
+                $("#piechart_food_adelaide").hide();
+                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_canberra").hide();
+                $("#piechart_food_melbourne").hide();
+                $("#piechart_food_perth").show();
+                $("#piechart_food_sydney").hide();
+              }
+              else if ($(this).val() == 6) {
+                $("#piechart_food_adelaide").hide();
+                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_canberra").hide();
+                $("#piechart_food_melbourne").hide();
+                $("#piechart_food_perth").hide();
+                $("#piechart_food_sydney").show();
+              }
+            })
+          })
+        </script>
+  
+        <div align = "center">
+          <select class="select" size="1" name="type" id="type" style="text-align:center; text-align-last:center; margin:auto;">
+  
+            <option value="1">Adelaide</option>
+            <option value="2">Brisbane</option>
+            <option value="3">Canberra</option>
+            <option value="4">Melbourne</option>
+            <option value="5">Perth</option>
+            <option value="6">Sydney</option>
+  
+          </select>
+        </div>
+  
+        <!-- PIE Chart here -->
+        <div id="piechart_food_adelaide" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+  
+        <div id="piechart_food_brisbance" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+  
+        <div id="piechart_food_canberra" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+  
+        <div id="piechart_food_melbourne" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+          
+        <div id="piechart_food_perth" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+  
+        <div id="piechart_food_sydney" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+      </td>
+
+    </tr>
+    <tr>
+      <td>
+        <div id="barchart2" style="width: 900px; height: 500px;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+          </script>
+        </div>
+      </td>
+      
+      <!-- Food type and age distribution percentage chart here -->
+      <td>
+        <div id="barchart_food_age_percentage" style="width: 900px; height: 500px;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+          </script>
+        </div>
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <!-- Food type and income number chart here -->
+      <td>
+        <div id="barchart_food_income_number" style="width: 900px; height: 500px;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+          </script>
+        </div>
+      </td>
+      
+      <!-- Food type and income percentage chart here -->
+      <td>
+        <div id="barchart_food_income_percentage" style="width: 900px; height: 500px;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+          </script>
+        </div>
+      </td>
+
+    </tr>
+
+  </table>
+  <h3><a href="/">back</a></h3>
+</body>
+
 </html>

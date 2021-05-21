@@ -1,8 +1,8 @@
 
 
-let data_sydney = [['Attitude', 'TwitterCount']];
+let food_data_adelaide = [['Attitude', 'TwitterCount']];
 
-function myFunc(data, age_data) {
+function myFunc(data) {
 
   age_data = JSON.parse(age_data)
   data = JSON.parse(data)
@@ -34,34 +34,33 @@ function myFunc(data, age_data) {
     //   ]
     // )
     // console.log(_aurin_data_1)
-    data_sydney.push(
+    food_data_adelaide.push(
       [
         'Negative',
-        data[3].value,
+        100
       ],
       [
         'Netural',
-        data[4].value,
+        200
       ],
       [
         'Positive',
-        data[5].value,
+        300
       ]
     )
-    console.log(data_sydney)
+    console.log(data_adelaide)
     break;
   }
-  google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
 }
 
 function drawChart() {
-  var figure_data = google.visualization.arrayToDataTable(data_sydney);
+  var figure_data = google.visualization.arrayToDataTable(food_data_adelaide);
   var options = {
-    title: 'Sydney'
+    title: 'Adelaide'
     // pieHole: 0.4,
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('pie_chart_sydney'));
+  var chart = new google.visualization.PieChart(document.getElementById('piechart_food_adelaide'));
   chart.draw(figure_data, options);
 }

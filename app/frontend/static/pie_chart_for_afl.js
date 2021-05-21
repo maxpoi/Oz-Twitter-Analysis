@@ -1,6 +1,6 @@
 
 
-let data_1 = [['Attitude', 'TwitterCount']];
+let data_adelaide = [['Attitude', 'TwitterCount']];
 
 function myFunc(data, age_data) {
 
@@ -34,34 +34,33 @@ function myFunc(data, age_data) {
     //   ]
     // )
     // console.log(_aurin_data_1)
-    data_1.push(
+    data_adelaide.push(
       [
         'Negative',
-        data[i].value,
+        100
       ],
       [
         'Netural',
-        data[i+1].value,
+        200
       ],
       [
         'Positive',
-        data[i+1].value,
+        300
       ]
     )
-    console.log(data_1)
+    console.log(data_adelaide)
     break;
   }
-  google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
 }
 
 function drawChart() {
-  var figure_data = google.visualization.arrayToDataTable(data_1);
+  var figure_data = google.visualization.arrayToDataTable(data_adelaide);
   var options = {
-    title: 'Melbourne'
+    title: 'Adelaide'
     // pieHole: 0.4,
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('pie_chart_melbourne'));
+  var chart = new google.visualization.PieChart(document.getElementById('piechart_afl_adelaide'));
   chart.draw(figure_data, options);
 }

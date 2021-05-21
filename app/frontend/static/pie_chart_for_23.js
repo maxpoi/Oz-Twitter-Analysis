@@ -37,21 +37,20 @@ function myFunc(data, age_data) {
     data_adelaide.push(
       [
         'Negative',
-        data[6].value,
+        100
       ],
       [
         'Netural',
-        data[7].value,
+        200
       ],
       [
         'Positive',
-        data[8].value,
+        300
       ]
     )
     console.log(data_adelaide)
     break;
   }
-  google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
 }
 
@@ -62,6 +61,6 @@ function drawChart() {
     // pieHole: 0.4,
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('pie_chart_adelaide'));
+  var chart = new google.visualization.PieChart(document.getElementById('piechart_23_adelaide'));
   chart.draw(figure_data, options);
 }
