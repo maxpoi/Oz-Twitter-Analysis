@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-exec docker build -t app -f frontend/Dockerfile . && docker run -d app --name="app"
+sudo docker build -t app -f frontend/Dockerfile . 
+sudo docker run -d -p 8003:8003 --name app app

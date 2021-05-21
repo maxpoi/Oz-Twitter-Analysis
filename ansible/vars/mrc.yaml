@@ -56,6 +56,18 @@ security_groups:
     port_range_min: 8001
     port_range_max: 8001
     remote_ip_prefix: 0.0.0.0/0
+  - name: app
+    description: port for app connections
+    protocol: tcp
+    port_range_min: 8003
+    port_range_max: 8003
+    remote_ip_prefix: 0.0.0.0/0
+  - name: upload_data
+    description: port for upload_data connections
+    protocol: tcp
+    port_range_min: 8002
+    port_range_max: 8002
+    remote_ip_prefix: 0.0.0.0/0
 
 
 # Instance

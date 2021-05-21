@@ -156,7 +156,7 @@ api.add_resource(Scenario4_chart, '/scenario4_food/details')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port='8003')
 
 
 

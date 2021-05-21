@@ -24,6 +24,6 @@ COPY ./crawler/crawl_raw_data/node_2/ .
 COPY ./couchdb_config.py .
 COPY ./crawler/twitter_api_config.py .
 
-EXPOSE 8003
+EXPOSE 8001
 
 CMD ["python", "harvest_by_locations_node_2.py"]
