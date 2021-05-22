@@ -116,50 +116,50 @@
         <div id="piechart_food_overall" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Adelaide")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
 
         <!-- PIE Chart here -->
         <div id="piechart_food_adelaide" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food_ade.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Adelaide")
+            myVar = myFuncAda({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_food_brisbane" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food_bri.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Brisbane")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_food_canberra" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food_can.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Canberra")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_food_melbourne" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food_mel.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Melbourne")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
           
         <div id="piechart_food_perth" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food_per.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Perth")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_food_sydney" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food_syd.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Sydney")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
       </td>
