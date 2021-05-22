@@ -115,50 +115,50 @@
         <div id="piechart_23_overall" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Adelaide")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
 
         <!-- PIE Chart here -->
         <div id="piechart_23_adelaide" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_ade.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Adelaide")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_23_brisbane" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_bri.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Brisbane")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_23_canberra" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_can.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Canberra")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_23_melbourne" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_mel.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Melbourne")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
           
         <div id="piechart_23_perth" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_per.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Perth")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
   
         <div id="piechart_23_sydney" style="width: 900px; height: 500px; margin:0 auto;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_syd.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, "Sydney")
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
       </td>
@@ -169,7 +169,7 @@
         <div id="barchart2" style="width: 900px; height: 500px;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'scene23_age.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}}, {{ scenario }}, false)
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}}, {{ scenario }})
           </script>
         </div>
       </td>
@@ -177,9 +177,9 @@
       <!-- Age Percentage -->
       <td>
         <div id="barchart2_percent" style="width: 900px; height: 500px;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'scene23_age.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'scene23_age_percent.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}}, {{ scenario }}, true)
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}}, {{ scenario }})
           </script>
         </div>
       </td>
@@ -198,7 +198,7 @@
        <!-- Twitter Sentiment Percentage -->
        <td>
         <div id="barchart3_percent" style="width: 900px; height: 500px;">
-          <script type="text/javascript" src="{{ url_for('static', filename = 'scene23_income.js')}}"></script>
+          <script type="text/javascript" src="{{ url_for('static', filename = 'scene23_income_percent.js')}}"></script>
           <script type="text/javascript">
             myVar = myFunc({{ data| tojson}}, {{ income| tojson}}, {{ scenario }}, true)
           </script>

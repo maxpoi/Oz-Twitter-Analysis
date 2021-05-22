@@ -1,4 +1,4 @@
-let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+let _age_data_percent = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Percentage', 'Neutral Twitter Percentage', 'Positive Twitter Percentage']];
     function myFunc(data, age_data, scenario) {
         age_data = JSON.parse(age_data)
         data = JSON.parse(data)
@@ -20,26 +20,28 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount',
                     break;
                 }
             }
-                _age_data.push(
-                    [
-                    data[index].key[0],
-                    parseInt(age_data[i]['0_to_14']),
-                    parseInt(age_data[i]['15_to_64']),
-                    parseInt(age_data[i]['over_65']),
-                    data[index].value,
-                    data[index+1].value,
-                    data[index+2].value
-                    ]
-                )
+           total_person = parseInt(age_data[i]['0_to_14']) + parseInt(age_data[i]['15_to_64']) +  parseInt(age_data[i]['over_65']);
+           total_tweet = data[index].value + data[index+1].value + data[index+2].value;
+            _age_data_percent.push(
+               [
+               data[index].key[0],
+               parseInt(age_data[i]['0_to_14'])/total_person,
+               parseInt(age_data[i]['15_to_64'])/total_person,
+               parseInt(age_data[i]['over_65'])/total_person,
+               data[index].value/total_tweet,
+               data[index+1].value/total_tweet,
+               data[index+2].value/total_tweet
+               ]
+           )
         }
         google.charts.setOnLoadCallback(drawCountChart);
     }
 
       function drawCountChart() {
-        var data = google.visualization.arrayToDataTable(_age_data);
+        var data = google.visualization.arrayToDataTable(_age_data_percent);
         var options = {
           chart: {
-            title: scenario_str + 'Twitter Numbers Compared with Age Distribution',
+            title: scenario_str + 'Twitter Percentage Compared with Age Percentage',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -54,14 +56,28 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount',
           axes: {
             x: {
               twitter_amount: {label: 'Twitter Numbers'}, // Bottom x-axis.
-              population: {side: 'top', label: 'Age Distribution'} // Top x-axis.
+              population: {side: 'top', label: 'Age Percentage'} // Top x-axis.
                 }
             },
           isStacked: true
         };
 
 
-        var chart = new google.charts.Bar(document.getElementById('barchart2'));
+        var chart = new google.charts.Bar(document.getElementById('barchart2_percent'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
-let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
-    function myFunc(data, income, scenario) {
+let _income_data_percent = [['City', 'Mean Income', 'Negative Twitter Percentage', 'Neutral Twitter Percentage', 'Positive Twitter Percentage']];
+    function myFunc(data, income, scenario, Percent) {
         if (scenario === 2){
             scenario_str = "Vaccine "
         }else{
@@ -21,13 +21,14 @@ let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral 
                 }
             }
 
-            _income_data.push(
+            let total_tweet = data[index].value + data[index+1].value + data[index+2].value;
+            _income_data_percent.push(
                 [
                 data[index].key[0],
                 parseInt(income[i]['mean_income']),
-                data[index].value,
-                data[index+1].value,
-                data[index+2].value
+                data[index].value/total_tweet,
+                data[index+1].value/total_tweet,
+                data[index+2].value/total_tweet
                 ]
             )
         }
@@ -35,11 +36,10 @@ let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral 
     }
 
       function drawChart() {
-
-        var data = google.visualization.arrayToDataTable(_income_data);
+        var data = google.visualization.arrayToDataTable(_income_data_percent);
         var options = {
           chart: {
-            title: scenario_str + 'Twitter Amount Compared with Mean Income',
+            title: scenario_str + 'Twitter Percentage Compared with Mean Income',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -51,15 +51,15 @@ let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral 
           },
           axes: {
             x: {
-              twitter_amount: {label: 'Twitter Amount'}, // Bottom x-axis.
+              twitter_amount: {label: 'Twitter Percentage'}, // Bottom x-axis.
               income: {side: 'top', label: 'Mean Income'} // Top x-axis.
                 }
-          },
+            },
           isStacked: true
         };
 
 
-        var chart = new google.charts.Bar(document.getElementById('barchart3'));
+        var chart = new google.charts.Bar(document.getElementById('barchart3_percent'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
