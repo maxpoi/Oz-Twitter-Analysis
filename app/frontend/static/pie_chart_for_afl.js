@@ -1,6 +1,6 @@
 let data_pie = [['Attitude', 'TwitterCount']];
 function myFunc(data) {
-
+    console.log(data)
     data = JSON.parse(data)
     for (let i = 0; i < data.length; i++) {
         console.log(data[i].key)
