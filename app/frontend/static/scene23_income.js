@@ -1,6 +1,12 @@
-    let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
 
-    function myFunc(data, income, scenario) {
+    function myFunc(data, income, scenario, Percent) {
+        if (Percent){
+            _income_data = [['City', 'Mean Income', 'Negative Twitter Percentage', 'Neutral Twitter Percentage', 'Positive Twitter Percentage']];
+            element_id = "barchart3_percent"
+        }else{
+            _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+            element_id = "barchart3"
+        }
         if (scenario === 2){
             scenario_str = "Vaccine "
         }else{
@@ -9,10 +15,7 @@
 
         income = JSON.parse(income)
         data = JSON.parse(data)
-        console.log(income)
-        console.log(income[0])
         for(let i=0;i<income.length;i++){
-            console.log(i)
             let index = 0;
             for (let k=0; k<data.length;k++){
 
@@ -24,24 +27,46 @@
                     break;
                 }
             }
-            _income_data.push(
-                [
-                data[index].key[0],
-                parseInt(income[i]['mean_income']),
-                data[index].value,
-                data[index+1].value,
-                data[index+2].value
-                ]
-            )
+
+            if(Percent){
+                let total_tweet = data[index].value + data[index+1].value + data[index+2].value;
+                console.log(parseInt(income[i]['mean_income']));
+                _income_data.push(
+                    [
+                    data[index].key[0],
+                    parseInt(income[i]['mean_income']),
+                    data[index].value/total_tweet,
+                    data[index+1].value/total_tweet,
+                    data[index+2].value/total_tweet
+                    ]
+                )
+                console.log(_income_data[1])
+            }else{
+                _income_data.push(
+                    [
+                    data[index].key[0],
+                    parseInt(income[i]['mean_income']),
+                    data[index].value,
+                    data[index+1].value,
+                    data[index+2].value
+                    ]
+                )
+            }
         }
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart(_income_data, element_id));
     }
 
-      function drawChart() {
+      function drawChart(_income_data, element_id) {
+        if(element_id === "barchart3"){
+            graph_name = " Numbers"
+        }else{
+            graph_name = " Percentage"
+        }
+
         var data = google.visualization.arrayToDataTable(_income_data);
         var options = {
           chart: {
-            title: scenario_str + 'Twitter Numbers Compared with Mean Income',
+            title: scenario_str + 'Twitter '+graph_name+' Compared with Mean Income',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -53,7 +78,7 @@
           },
           axes: {
             x: {
-              twitter_amount: {label: 'Twitter Numbers'}, // Bottom x-axis.
+              twitter_amount: {label: 'Twitter ' + graph_name}, // Bottom x-axis.
               income: {side: 'top', label: 'Mean Income'} // Top x-axis.
                 }
           },
@@ -61,7 +86,7 @@
         };
 
 
-        var chart = new google.charts.Bar(document.getElementById('barchart3'));
+        var chart = new google.charts.Bar(document.getElementById(element_id));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }

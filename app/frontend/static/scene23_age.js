@@ -1,14 +1,22 @@
-    let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
 
-    function myFunc(data, age_data, scenario) {
+    function myFunc(data, age_data, scenario, Percent) {
+        age_data = JSON.parse(age_data)
+        data = JSON.parse(data)
+
+        if (Percent){
+            _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Percentage', 'Neutral Twitter Percentage', 'Positive Twitter Percentage']];
+            element_id = "barchart2_percent"
+        } else {
+            _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+            element_id = "barchart2"
+        }
+
         if (scenario === 2){
             scenario_str = "Vaccine "
         }else{
             scenario_str = "5G "
         }
 
-        age_data = JSON.parse(age_data)
-        data = JSON.parse(data)
         for(let i=0;i<age_data.length;i++){
             let index = 0;
             for (let k=0; k<data.length;k++){
@@ -20,27 +28,49 @@
                     break;
                 }
             }
-            _age_data.push(
-                [
-                data[index].key[0],
-                parseInt(age_data[i]['0_to_14']),
-                parseInt(age_data[i]['15_to_64']),
-                parseInt(age_data[i]['over_65']),
-                data[index].value,
-                data[index+1].value,
-                data[index+2].value
-                ]
-            )
+            if (Percent){
+                let total_person = parseInt(age_data[i]['0_to_14']) + parseInt(age_data[i]['15_to_64']) +  parseInt(age_data[i]['over_65']);
+                let total_tweet = data[index].value + data[index+1].value + data[index+2].value;
+                 _age_data.push(
+                    [
+                    data[index].key[0],
+                    parseInt(age_data[i]['0_to_14'])/total_person,
+                    parseInt(age_data[i]['15_to_64'])/total_person,
+                    parseInt(age_data[i]['over_65'])/total_person,
+                    data[index].value/total_tweet,
+                    data[index+1].value/total_tweet,
+                    data[index+2].value/total_tweet
+                    ]
+                )
+
+            } else {
+                _age_data.push(
+                    [
+                    data[index].key[0],
+                    parseInt(age_data[i]['0_to_14']),
+                    parseInt(age_data[i]['15_to_64']),
+                    parseInt(age_data[i]['over_65']),
+                    data[index].value,
+                    data[index+1].value,
+                    data[index+2].value
+                    ]
+                )
+            }
+
         }
-        console.log(_age_data)
-        google.charts.setOnLoadCallback(drawCountChart);
+        google.charts.setOnLoadCallback(drawCountChart(_age_data, element_id));
     }
 
-      function drawCountChart() {
+      function drawCountChart(_age_data, element_id) {
+        if(element_id === "barchart2"){
+            graph_name = " Distribution"
+        }else{
+            graph_name = " Percentage"
+        }
         var data = google.visualization.arrayToDataTable(_age_data);
         var options = {
           chart: {
-            title: scenario_str + 'Twitter Numbers Compared with Age distribution',
+            title: scenario_str + 'Twitter Numbers Compared with Age' + graph_name,
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -55,14 +85,14 @@
           axes: {
             x: {
               twitter_amount: {label: 'Twitter Numbers'}, // Bottom x-axis.
-              population: {side: 'top', label: 'Age Distribution'} // Top x-axis.
+              population: {side: 'top', label: 'Age' + graph_name} // Top x-axis.
                 }
             },
           isStacked: true
         };
 
 
-        var chart = new google.charts.Bar(document.getElementById('barchart2'));
+        var chart = new google.charts.Bar(document.getElementById(element_id));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }

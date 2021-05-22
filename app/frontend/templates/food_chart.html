@@ -25,7 +25,7 @@
           $(function () {
             //隐藏div
   
-            $("#piechart_food_brisbance").hide();
+            $("#piechart_food_brisbane").hide();
             $("#piechart_food_canberra").hide();
             $("#piechart_food_melbourne").hide();
             $("#piechart_food_perth").hide();
@@ -34,14 +34,14 @@
             $("#type").change(function () {
               if ($(this).val() == 1) {
                 $("#piechart_food_adelaide").show();
-                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_brisbane").hide();
                 $("#piechart_food_canberra").hide();
                 $("#piechart_food_melbourne").hide();
                 $("#piechart_food_perth").hide();
                 $("#piechart_food_sydney").hide();
               } else if ($(this).val() == 2) {
                 $("#piechart_food_adelaide").hide();
-                $("#piechart_food_brisbance").show();
+                $("#piechart_food_brisbane").show();
                 $("#piechart_food_canberra").hide();
                 $("#piechart_food_melbourne").hide();
                 $("#piechart_food_perth").hide();
@@ -49,7 +49,7 @@
               }
               else if ($(this).val() == 3) {
                 $("#piechart_food_adelaide").hide();
-                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_brisbane").hide();
                 $("#piechart_food_canberra").show();
                 $("#piechart_food_melbourne").hide();
                 $("#piechart_food_perth").hide();
@@ -57,7 +57,7 @@
               }
               else if ($(this).val() == 4) {
                 $("#piechart_food_adelaide").hide();
-                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_brisbane").hide();
                 $("#piechart_food_canberra").hide();
                 $("#piechart_food_melbourne").show();
                 $("#piechart_food_perth").hide();
@@ -65,7 +65,7 @@
               }
               else if ($(this).val() == 5) {
                 $("#piechart_food_adelaide").hide();
-                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_brisbane").hide();
                 $("#piechart_food_canberra").hide();
                 $("#piechart_food_melbourne").hide();
                 $("#piechart_food_perth").show();
@@ -73,7 +73,7 @@
               }
               else if ($(this).val() == 6) {
                 $("#piechart_food_adelaide").hide();
-                $("#piechart_food_brisbance").hide();
+                $("#piechart_food_brisbane").hide();
                 $("#piechart_food_canberra").hide();
                 $("#piechart_food_melbourne").hide();
                 $("#piechart_food_perth").hide();
@@ -100,42 +100,42 @@
         <div id="piechart_food_adelaide" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}})
+            myVar = myFunc({{ data| tojson}}, "Adelaide")
           </script>
         </div>
   
-        <div id="piechart_food_brisbance" style="width: 900px; height: 500px; margin:0 auto;">
+        <div id="piechart_food_brisbane" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}})
+            myVar = myFunc({{ data| tojson}}, "Brisbane")
           </script>
         </div>
   
         <div id="piechart_food_canberra" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}})
+            myVar = myFunc({{ data| tojson}}, "Canberra")
           </script>
         </div>
   
         <div id="piechart_food_melbourne" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}})
+            myVar = myFunc({{ data| tojson}}, "Melbourne")
           </script>
         </div>
           
         <div id="piechart_food_perth" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}})
+            myVar = myFunc({{ data| tojson}}, "Perth")
           </script>
         </div>
   
         <div id="piechart_food_sydney" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_food.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}})
+            myVar = myFunc({{ data| tojson}}, "Sydney")
           </script>
         </div>
       </td>
@@ -146,23 +146,21 @@
         <div id="barchart2" style="width: 900px; height: 500px;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}}, false)
           </script>
         </div>
       </td>
       
       <!-- Food type and age distribution percentage chart here -->
       <td>
-        <div id="barchart_food_age_percentage" style="width: 900px; height: 500px;">
+        <div id="barchart2_percent" style="width: 900px; height: 500px;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'food_age.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}}, true)
           </script>
         </div>
       </td>
-
     </tr>
-
     <tr>
 
       <!-- Food type and income number chart here -->

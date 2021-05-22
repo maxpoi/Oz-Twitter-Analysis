@@ -1,66 +1,26 @@
 
 
-let food_data_adelaide = [['Attitude', 'TwitterCount']];
-
-function myFunc(data) {
-
-  age_data = JSON.parse(age_data)
+function myFunc(data, city) {
+  food_data_pie = [['Attitude', 'TwitterCount']];
+  element_id = "piechart_food_" + city.toLowerCase()
   data = JSON.parse(data)
-  for (let i = 0; i < age_data.length; i++) {
-    // let total_person = 0;
-    // let percentage_of_0_to_14 = 0
-    // let percentage_of_15_to_64 = 0+
-    // let percentage_of_over_65 = 0
-    // console.log(age_data[i])
-    // total_person += parseInt(age_data[i]['0_to_14']);
-    // total_person += parseInt(age_data[i]['15_to_64']);
-    // total_person += parseInt(age_data[i]['over_65']);
-    // percentage_of_0_to_14 = parseInt(age_data[i]['0_to_14']) / total_person;
-    // percentage_of_15_to_64 = parseInt(age_data[i]['15_to_64']) / total_person;
-    // percentage_of_over_65 = parseInt(age_data[i]['over_65']) / total_person;
-
-    // let index = 0;
-    // for (let k = 0; k < data.length; k++) {
-    //   if (data[k].key.toLowerCase() === age_data[i].city) {
-    //     index = k;
-    //     break;
-    //   }
-    // }
-    // _aurin_data_1.push(
-    //   [
-    //     percentage_of_0_to_14,
-    //     percentage_of_15_to_64,
-    //     percentage_of_over_65
-    //   ]
-    // )
-    // console.log(_aurin_data_1)
-    food_data_adelaide.push(
-      [
-        'Negative',
-        100
-      ],
-      [
-        'Netural',
-        200
-      ],
-      [
-        'Positive',
-        300
-      ]
-    )
-    console.log(data_adelaide)
-    break;
+  for (let i = 0; i < data.length; i++) {
+    if (city === data[i].key[0]){
+        food_data_pie.push(
+            [data[i].key[1], data[i].value]
+        )
+    }
   }
-  google.charts.setOnLoadCallback(drawChart);
+  google.charts.setOnLoadCallback(drawChart(food_data_pie, element_id, city));
 }
 
-function drawChart() {
-  var figure_data = google.visualization.arrayToDataTable(food_data_adelaide);
+function drawChart(food_data_pie, element_id, city) {
+  var figure_data = google.visualization.arrayToDataTable(food_data_pie);
   var options = {
-    title: 'Adelaide'
+    title: city + " Food Twitter Distribution"
     // pieHole: 0.4,
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('piechart_food_adelaide'));
+  var chart = new google.visualization.PieChart(document.getElementById(element_id));
   chart.draw(figure_data, options);
 }

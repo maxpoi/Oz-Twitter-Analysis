@@ -27,7 +27,7 @@
         <div id="piechart_afl" style="width: 900px; height: 500px;" align="center">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_afl.js')}}"></script>
           <script type="text/javascript">
-            myVar = myFunc({{ data| tojson}}, {{ income| tojson}})
+            myVar = myFunc({{ data| tojson}})
           </script>
         </div>
       </td>

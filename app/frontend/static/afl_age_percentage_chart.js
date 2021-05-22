@@ -1,6 +1,6 @@
 
 
-let _aurin_data_for_percentage = [['City', '0-14', '15-64', 'over 65', 'Twitter amount']];
+let _aurin_data_for_percentage = [['City', '0-14', '15-64', 'over 65', 'Twitter discussion heat']];
 
 function myFunc(data, age_data) {
 
