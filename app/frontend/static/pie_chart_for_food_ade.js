@@ -1,9 +1,6 @@
 let food_data_pie_ade = [['Attitude', 'TwitterCount']];
 
-function myFuncAda(data) {
-    if (food_data_pie_ade.length  !== 1) {
-        return
-    }
+function myFunc(data) {
   data = JSON.parse(data)
   for (let i = 0; i < data.length; i++) {
     if (data[i].key[0] === "Adelaide"){

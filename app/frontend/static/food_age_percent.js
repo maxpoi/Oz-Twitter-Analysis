@@ -1,6 +1,5 @@
-let _age_data = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'French', 'Italian', 'Japanese', 'Korean']];
+let _age_data_percent = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'French', 'Italian', 'Japanese', 'Korean']];
     function myFunc(data, age_data) {
-
         age_data = JSON.parse(age_data)
         data = JSON.parse(data)
         for(let i=0;i<age_data.length;i++){
@@ -14,30 +13,32 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'Fr
                     break;
                 }
             }
-
-            _age_data.push(
+            total_age = parseInt(age_data[i]['0_to_14'])+parseInt(age_data[i]['15_to_64'])+parseInt(age_data[i]['over_65'])
+            total_tweet = data[index].value + data[index+1].value + data[index+2].value + data[index+3].value + data[index+4].value + data[index+5].value
+            _age_data_percent.push(
                 [
                 data[index].key[0],
-                parseInt(age_data[i]['0_to_14']),
-                parseInt(age_data[i]['15_to_64']),
-                parseInt(age_data[i]['over_65']),
-                data[index].value,
-                data[index+1].value,
-                data[index+2].value,
-                data[index+3].value,
-                data[index+4].value,
-                data[index+5].value
+                parseInt(age_data[i]['0_to_14'])/total_age,
+                parseInt(age_data[i]['15_to_64'])/total_age,
+                parseInt(age_data[i]['over_65'])/total_age,
+                data[index].value/total_tweet,
+                data[index+1].value/total_tweet,
+                data[index+2].value/total_tweet,
+                data[index+3].value/total_tweet,
+                data[index+4].value/total_tweet,
+                data[index+5].value/total_tweet
                 ]
             )
+
         }
         google.charts.setOnLoadCallback(drawChart);
     }
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable(_age_data);
+        var data = google.visualization.arrayToDataTable(_age_data_percent);
         var options = {
           chart: {
-            title: 'Food Twitter Amount Compared with Age distribution',
+            title: 'Food Twitter Percentage Compared with Age distribution',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -54,7 +55,7 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'Fr
           },
           axes: {
             x: {
-              twitter_amount: {label: 'Food Twitter Numbers'}, // Bottom x-axis.
+              twitter_amount: {label: 'Food Twitter Percentage'}, // Bottom x-axis.
               population: {side: 'top', label: 'Age Distribution'} // Top x-axis.
                 }
             },
@@ -62,7 +63,7 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'Fr
         };
 
 
-        var chart = new google.charts.Bar(document.getElementById('barchart2'));
+        var chart = new google.charts.Bar(document.getElementById('barchart2_percent'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
