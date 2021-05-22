@@ -5,13 +5,15 @@
 # APIs reference: https://docs.tweepy.org/en/latest/api.html#api-reference
 # https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
 
-import tweepy, couchdb, json, sys
+import tweepy, couchdb, json, sys, itertools
 
 from os.path import dirname, abspath
 parent_dir = dirname(dirname(abspath(__file__)))
 sys.path.append(parent_dir)
 grandparent_dir = dirname(dirname(dirname(abspath(__file__))))
 sys.path.append(grandparent_dir)
+grandgrandparent_dir = dirname(dirname(dirname(dirname(abspath(__file__)))))
+sys.path.append(grandgrandparent_dir)
 
 from twitter_api_config import twitter_api
 from couchdb_config import Config
@@ -29,7 +31,7 @@ def count_keyword_in_different_states(keyword, state, api, db):
 
     # Because of twitter API limits the maximum number of returns to 100 at a time, 
     # so use max_id field restricts the content returned to be different each time.
-    for i in range(0, float('inf')):
+    for i in itertools.count():
         # For the first time, there is no max_id field, so call api.search() without max_id
         if (i == 0):
             search_results = api.search(q = keyword, geocode = state_geo[state], count = 100)
