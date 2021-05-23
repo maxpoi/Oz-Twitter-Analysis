@@ -1,6 +1,7 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">google.charts.load('current', { 'packages': ['bar'] });</script>
   <script type="text/javascript">google.charts.load('current', { 'packages': ['corechart'] });</script>
@@ -8,6 +9,49 @@
 </head>
 
 <body>
+
+  <div class="title">
+    <h1 class="stroke">Detailed Analysis</h1>
+  </div>
+  <ul>
+    <div class="nav1">
+      <a href="#">AFL Discussion Heat</a>
+      <div class="nav2">
+        <a href="/scenario1_afl">Twitter Amounts</a>
+        <a href="/scenario1_afl/details">Detailed Analysis</a>
+      </div>
+    </div>
+    <div class="nav1">
+      <a href="#">Vaccine Sentiment Analysis</a>
+      <div class="nav2">
+        <a href="/scenario2_vaccine_positive">Positive Twitter Amounts</a>
+        <a href="/scenario2_vaccine">Neutral Twitter Amounts</a>
+        <a href="/scenario2_vaccine_negative">Negative Twitter Amounts</a>
+        <a href="/scenario2_vaccine/details">Detailed Analysis</a>
+      </div>
+    </div>
+    <div class="nav1">
+      <a href="#">5G Sentiment Analysis</a>
+      <div class="nav2">
+        <a href="/scenario3_5g_positive">Positive Twitter Amounts</a>
+        <a href="/scenario3_5g">Neutral Twitter Amounts</a>
+        <a href="/scenario3_5g_negative">Negative Twitter Amounts</a>
+        <a href="/scenario3_5g/details">Detailed Analysis</a>
+      </div>
+    </div>
+    <div class="nav1">
+      <a href="#">Food Discussion Heat</a>
+      <div class="nav2">
+        <a href="/scenario4_food_us">American Food Twitter Amounts</a>
+        <a href="/scenario4_food_cn">Chinese Food Twitter Amounts</a>
+        <a href="/scenario4_food_fr">French Food Twitter Amounts</a>
+        <a href="/scenario4_food_it">Italian Food Twitter Amounts</a>
+        <a href="/scenario4_food_jp">Japanese Food Twitter Amounts</a>
+        <a href="/scenario4_food_kr">Korean Food Twitter Amounts</a>
+        <a href="/scenario4_food/details">Detailed Analysis</a>
+      </div>
+    </div>
+  </ul>
   <table>
     <tr>
       <td>
@@ -96,10 +140,11 @@
             })
           })
         </script>
-  
-        <div align = "center">
-          <select class="select" size="1" name="type" id="type" style="text-align:center; text-align-last:center; margin:auto;">
-            
+
+        <div align="center">
+          <select class="shortselect" size="1" name="type" id="type"
+            style="text-align:center; text-align-last:center; margin:auto;">
+
             <option value="1">Overall</option>
             <option value="2">Adelaide</option>
             <option value="3">Brisbane</option>
@@ -107,10 +152,10 @@
             <option value="5">Melbourne</option>
             <option value="6">Perth</option>
             <option value="7">Sydney</option>
-  
+
           </select>
         </div>
-        
+
         <!-- PIE Chart here -->
         <div id="piechart_23_overall" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23.js')}}"></script>
@@ -126,35 +171,35 @@
             myVar = myFunc({{ data| tojson}})
           </script>
         </div>
-  
+
         <div id="piechart_23_brisbane" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_bri.js')}}"></script>
           <script type="text/javascript">
             myVar = myFunc({{ data| tojson}})
           </script>
         </div>
-  
+
         <div id="piechart_23_canberra" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_can.js')}}"></script>
           <script type="text/javascript">
             myVar = myFunc({{ data| tojson}})
           </script>
         </div>
-  
+
         <div id="piechart_23_melbourne" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_mel.js')}}"></script>
           <script type="text/javascript">
             myVar = myFunc({{ data| tojson}})
           </script>
         </div>
-          
+
         <div id="piechart_23_perth" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_per.js')}}"></script>
           <script type="text/javascript">
             myVar = myFunc({{ data| tojson}})
           </script>
         </div>
-  
+
         <div id="piechart_23_sydney" style="width: 900px; height: 500px; margin:0 auto;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_23_syd.js')}}"></script>
           <script type="text/javascript">
@@ -173,7 +218,7 @@
           </script>
         </div>
       </td>
-      
+
       <!-- Age Percentage -->
       <td>
         <div id="barchart2_percent" style="width: 900px; height: 500px;">
@@ -195,8 +240,8 @@
         </div>
       </td>
 
-       <!-- Twitter Sentiment Percentage -->
-       <td>
+      <!-- Twitter Sentiment Percentage -->
+      <td>
         <div id="barchart3_percent" style="width: 900px; height: 500px;">
           <script type="text/javascript" src="{{ url_for('static', filename = 'scene23_income_percent.js')}}"></script>
           <script type="text/javascript">
@@ -229,7 +274,7 @@
 
   </table>
 
-  <h3><a href="/">back</a></h3>
+  <!-- <h3><a href="/">back</a></h3> -->
 </body>
 
 </html>
