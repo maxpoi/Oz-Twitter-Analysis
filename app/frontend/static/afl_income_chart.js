@@ -1,6 +1,6 @@
 
 
-    let income_data = [['City', 'Mean Income', 'Twitter amount']];
+    let income_data = [['City', 'Mean Income', 'Twitter Discussion Heat']];
 
     function myFunc(data, income) {
 
@@ -32,7 +32,7 @@
         var data = google.visualization.arrayToDataTable(income_data);
         var options = {
           chart: {
-            title: 'AFL Twitter Numbers Compared with Income',
+            title: 'AFL Twitter Discussion Heat Compared with Income',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -41,7 +41,7 @@
           },
           axes: {
             x: {
-              twitter_amount: {label: 'Twitter Numbers'}, // Bottom x-axis.
+              twitter_amount: {label: 'Twitter Discussion Heat'}, // Bottom x-axis.
               mean_income: {side: 'top', label: 'Mean Income'} // Top x-axis.
                 }
             },

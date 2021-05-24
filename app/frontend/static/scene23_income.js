@@ -1,4 +1,4 @@
-let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+let _income_data = [['City', 'Mean Income', 'Negative Twitter Numbers', 'Neutral Twitter Numbers', 'Positive Twitter Numbers']];
     function myFunc(data, income, scenario) {
         if (scenario === 2){
             scenario_str = "Vaccine "
@@ -39,7 +39,7 @@ let _income_data = [['City', 'Mean Income', 'Negative Twitter Amount', 'Neutral 
         var data = google.visualization.arrayToDataTable(_income_data);
         var options = {
           chart: {
-            title: scenario_str + 'Twitter Amount Compared with Mean Income',
+            title: scenario_str + 'Twitter Numbers Compared with Mean Income',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{

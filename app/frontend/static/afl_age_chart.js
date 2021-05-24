@@ -1,4 +1,4 @@
-let _aurin_data = [['City', '0-14', '15-64', 'over 65', 'Twitter amount']];
+let _aurin_data = [['City', '0-14', '15-64', 'over 65', 'Twitter Discussion Heat']];
 
 function myFunc(data, age_data) {
 
@@ -32,7 +32,7 @@ function drawChart() {
   var data = google.visualization.arrayToDataTable(_aurin_data);
   var options = {
     chart: {
-      title: 'AFL Twitter Numbers Compared with Age distribution',
+      title: 'AFL Twitter Discussion Heat Compared with Age distribution',
     },
     bars: 'horizontal', // Required for Material Bar Charts.
     series: {
@@ -44,7 +44,7 @@ function drawChart() {
     },
     axes: {
       x: {
-        twitter_amount: { label: 'Twitter Numbers' }, // Bottom x-axis.
+        twitter_amount: { label: 'Twitter Discussion Heat' }, // Bottom x-axis.
         population: { side: 'top', label: 'Age Distribution' } // Top x-axis.
       }
     },

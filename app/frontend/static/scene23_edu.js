@@ -1,4 +1,4 @@
-let _edu_data = [['City', 'Certificate', 'Graduated Diploma and Certificate', 'Advanced Diploma', 'Bachelor', 'Postgraduate', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+let _edu_data = [['City', 'Certificate', 'Graduated Diploma and Certificate', 'Advanced Diploma', 'Bachelor', 'Postgraduate', 'Negative Twitter Numbers', 'Neutral Twitter Numbers', 'Positive Twitter Numbers']];
 
     function myFunc(data, education, scenario) {
 

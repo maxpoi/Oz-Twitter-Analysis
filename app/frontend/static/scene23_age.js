@@ -1,4 +1,4 @@
-let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+let _age_data = [['City', '0-14', '15-64', 'over 65', 'Negative Twitter Numbers', 'Neutral Twitter Numbers', 'Positive Twitter Numbers']];
     function myFunc(data, age_data, scenario) {
         age_data = JSON.parse(age_data)
         data = JSON.parse(data)
