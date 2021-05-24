@@ -37,7 +37,7 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'Fr
         var data = google.visualization.arrayToDataTable(_age_data);
         var options = {
           chart: {
-            title: 'Food Twitter Amount Compared with Age distribution',
+            title: 'Food Twitter Discussion Heat Compared with Age distribution',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series:{
@@ -54,7 +54,7 @@ let _age_data = [['City', '0-14', '15-64', 'over 65', 'American', 'Chinese', 'Fr
           },
           axes: {
             x: {
-              twitter_amount: {label: 'Food Twitter Numbers'}, // Bottom x-axis.
+              twitter_amount: {label: 'Food Twitter Discussion Heat'}, // Bottom x-axis.
               population: {side: 'top', label: 'Age Distribution'} // Top x-axis.
                 }
             },

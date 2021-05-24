@@ -26,7 +26,7 @@
         var data = google.visualization.arrayToDataTable(_data);
         var options = {
           chart: {
-            title: 'Food Related Twitter Numbers',
+            title: 'Food Related Twitter Discussion Heat',
           },
           bars: 'horizontal', // Required for Material Bar Charts.
         };

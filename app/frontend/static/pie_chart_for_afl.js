@@ -3,7 +3,7 @@ function myFunc(data) {
     console.log(data)
     data = JSON.parse(data)
     for (let i = 0; i < data.length; i++) {
-        if data[i].key === "Hobart"{
+        if (data[i].key === "Hobart"){
             continue;
         }
         console.log(data[i].key)
