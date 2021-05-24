@@ -88,6 +88,12 @@ function myFunc(data, sentiment, scenario) {
 
     // add markers to map
     geojson.features.forEach(function (marker) {
+        // Create a popup, but don't add it to the map yet.
+        var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: true
+        });
+
         // create a DOM element for the marker
         var el = document.createElement('div');
         el.className = 'marker';
@@ -98,12 +104,15 @@ function myFunc(data, sentiment, scenario) {
         el.style.height = marker.properties.iconSize[1] + 'px';
         el.style.backgroundSize = '100%';
 
-        el.addEventListener('click', function () {
-            window.alert(marker.properties.message);
-        });
+        // el.addEventListener('click', function () {
+        //     window.alert(marker.properties.message);
+        // });
+
+        popup.setLngLat(marker.geometry.coordinates).setText(marker.properties.message).addTo(map);
 
         // add marker to map
         new mapboxgl.Marker(el)
+            .setPopup(popup)
             .setLngLat(marker.geometry.coordinates)
             .addTo(map);
     });
