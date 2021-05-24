@@ -51,7 +51,7 @@ function myFunc(data) {
                 'type': 'Feature',
                 'properties': {
                     'message': data[i].key + ': ' + data[i].value,
-                    'iconSize': [data[i].value / 300, data[i].value / 300]
+                    'iconSize': [data[i].value / 200, data[i].value / 200]
                 },
                 'geometry': {
                     'type': 'Point',
@@ -78,7 +78,7 @@ function myFunc(data) {
         el.className = 'marker';
 
         el.style.backgroundImage =
-            'url(./static/assets/images/AFL_logo.png)';
+            'url(./static/assets/images/afl-sq.png)';
         el.style.width = 3 * marker.properties.iconSize[0] + 'px';
         el.style.height = 3 * marker.properties.iconSize[1] + 'px';
         el.style.backgroundSize = '100%';

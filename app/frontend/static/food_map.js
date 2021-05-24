@@ -76,22 +76,22 @@ function myFunc(data, rest) {
         let scale = 10
         switch (rest) {
             case 0:
-                scale = 20
-                break
-            case 1:
                 scale = 5
                 break
+            case 1:
+                scale = 0.8
+                break
             case 2:
-                scale = 10
+                scale = 2
                 break
             case 3:
-                scale = 40
+                scale = 10
                 break
             case 4:
-                scale = 15
+                scale = 2
                 break
             case 5:
-                scale = 2
+                scale = 0.3
                 break
         }
 
@@ -127,7 +127,7 @@ function myFunc(data, rest) {
         el.className = 'marker';
 
         el.style.backgroundImage =
-            'url(./static/assets/images/red.jpg)';
+            'url(./static/assets/images/food_sq.jpg)';
         el.style.width = marker.properties.iconSize[0] + 'px';
         el.style.height = marker.properties.iconSize[1] + 'px';
         el.style.backgroundSize = '100%';
