@@ -65,14 +65,17 @@
 
       <td>
         <script>
+          //隐藏div
+          function hideDiv() {
+            document.getElementById("piechart_23_adelaide").style.display = ("none");
+            document.getElementById("piechart_23_brisbane").style.display = ("none");
+            document.getElementById("piechart_23_canberra").style.display = ("none");
+            document.getElementById("piechart_23_melbourne").style.display = ("none");
+            document.getElementById("piechart_23_perth").style.display = ("none");
+            document.getElementById("piechart_23_sydney").style.display = ("none");
+          }
+          setTimeout(hideDiv, 1000);
           $(function () {
-            //隐藏div
-            $("#piechart_23_adelaide").hide();
-            $("#piechart_23_brisbane").hide();
-            $("#piechart_23_canberra").hide();
-            $("#piechart_23_melbourne").hide();
-            $("#piechart_23_perth").hide();
-            $("#piechart_23_sydney").hide();
             //给div添加change事件
             $("#type").change(function () {
               if ($(this).val() == 1) {
@@ -140,7 +143,6 @@
             })
           })
         </script>
-
         <div align="center">
           <select class="shortselect" size="1" name="type" id="type"
             style="text-align:center; text-align-last:center; margin:auto;">
