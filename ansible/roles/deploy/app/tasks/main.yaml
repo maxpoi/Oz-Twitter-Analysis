@@ -12,6 +12,15 @@
   set_fact:
     master: "{{ groups['Master'][0] }}"
 
+- name: Unzip
+  become: yes
+  unarchive:
+    src: chdir=/home/ubuntu/app/backend/upload_data data.zip
+    dest: /home/ubuntu/app/backend/upload_data/
+    owner: '0'
+    group: '0'
+    extra_opts: [--strip-components=1]
+
 - name: Prepare data
   become: yes
   command: chdir=/home/ubuntu/app/backend sh run_upload_data.sh

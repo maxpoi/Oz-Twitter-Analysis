@@ -10,7 +10,7 @@
 - name: Install utils
   become: yes
   apt:
-    name: ['git', 'python3', 'curl', 'wget', 'python3-pip']
+    name: ['git', 'git-lfs', 'python3', 'curl', 'wget', 'python3-pip']
     state: latest
     install-recommends: no
     update_cache: yes

@@ -23,7 +23,6 @@
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Project structure
-Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be determined later.
 
 > The ansible folder uses the Ansible playbook folder strucure. 
 > If a *templates* folder exists (like in *ansible/roles/deploy/couchdb*), then a J2 template is used to generate required files.
@@ -40,6 +39,12 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 │   │   │   │   │   └── main.yaml        # 
 │   │   │   │   └── templates            #
 │   │   │   │       └── xxx.xxx.j2       # 
+|   |   |   ├── app                      # 
+|   |   |   |   └── ...                  #
+|   |   |   ├── copy-directory           #
+|   |   |   |   └── ...                  #
+|   |   |   ├── harvester                #
+|   |   |   |   └── ...                  #
 │   │   ├── openstack                    # where all the setting up MRC tasks are listed 
 │   │   │   ├── ...                      # ⬆
 │   │   │   └── remove                   # where all the uninstall server tasks are listed
@@ -73,13 +78,13 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 |   |   |   |   |   └── ...              # ⬆
 |   |   |   ├── crawl_by_raw_data        # The folder containing Twitter Harvester codes for crawling any keywords
 |   |   |   |   ├── node_1               # The folder containing Twitter Harvester codes for crawling any keywords hosted on node_1
-|   |   |   |   |   ├── ...              # ⬆
+|   |   |   |   |   ├── Dockerfile       # ⬆
 |   |   |   |   |   └── ...              # ⬆
 |   |   |   |   ├── node_2               # The folder containing Twitter Harvester codes for crawling any keywords hosted on node_2
-|   |   |   |   |   ├── ...              # ⬆
+|   |   |   |   |   ├── Dockerfile       # ⬆
 |   |   |   |   |   └── ...              # ⬆
 |   |   |   |   └── node_3               # The folder containing Twitter Harvester codes for crawling any keywords hosted on node_3
-|   |   |   |   |   ├── ...              # ⬆
+|   |   |   |   |   ├── Dockerfile       # ⬆
 |   |   |   |   |   └── ...              # ⬆
 |   |   |   └── twitter_api_config.py    # The file is to set Twitter API configuration information
 │   │   └── mapreduce                    # The folder containing CouchDB map_reduce codes
@@ -102,24 +107,39 @@ Note: The structur of ***app*** and ***ATwitter-API-Interfaces*** are to be dete
 |   |   |── run_node_3.sh                #
 |   |   └── run_upload_data.sh           #
 │   └── frontend                         # 
-├── Twitter-API-Interfaces               # 
+|   |   |── Dockerfile                   #
+|   |   └── ...                          #
 ├── .all-contributorsec                  # Automate generated file by all-contributor plugin
 ├── openrc.sh                            # An environment set up bash file; used in run.sh
-├── run.sh                               # The main shell script. Must be run at the very start
+├── run_first.sh                         # The main shell script. Must be run at the very start
+├── run_last.sh                          # The main shell script. Must be run at the very end
 └── README.md
 ```
 
 ## How to run?
-  1. Open up a ***new terminal***
-  1. Open ansible/hosts
-      1. change *ansible_ssh_private_key_file* to your private key path
-  4. Connect AnyConnet
-  5. In terminal, run *"sh ./run.sh"*
+Before running the shell scripts, there are couple preparations must be done first.
+1.	Go to your MRC dashboard, download the OpenRC file by clicking your profile icon and choose download.
+2.	Rename the downloaded file to “*openrc.sh*” and move it under the root project folder.
+3.	Navigate to “*Key Pairs*” under “*Project – Compute*” and create a new key pair by clicking “Create Key Pair”. 
+4.	Fill in key name and choose key type as “*SSH Key*”. 
+5.	Save the downloaded *.pem* file to a directory where you can easily navigate to. (Warning! **DO NOT** share this key pair with anyone or public it!!!)
+6.	Open file “*hosts*” under *./ansible/*, after “*ansible_ssh_private_key_file*” append the *absolute path* to this .pem file you just downloaded.
+7.	Open file “*mrc.yaml*” under *./ansible/vars/*, after field “*instance: key_name:*”, replace the old key name by the key name you just created.
+8.	Click “User” on the top right and click “Setting”
+9.	Navigate to “Reset Password”
+10.	Click “Reset Password” and write down the new password somewhere safe. You will need to enter this password later when running the shell scripts.
+11.	*[Optional]* Open “*mrc.yaml*” file again, and decrease the “*vol_size*” if there no 500 GB storage available in your project space.
 
-## Host IPs
-master: [172.26.128.169]
+After that, you can run the shell scripts following the following instructions to run Ansible.
+1)	cd to the project folder
+2)	in your terminal, enter “*sh ./run_first.sh*” (or simply double-click the “*run_first.sh*” file)
+3)	Terminal will ask you to enter password, which is the password from step 9 previously.
+4)	Copy the smallest IP address. By smallest we need numerically smallest, for example, 172.0.0.0 < 172.0.0.1
+5)	Then open file “*couchdb_config.py*” under *./app/backend/*, replace all strings “172.xxx.xxx.xxx” with the smallest IP address you just copied. 
+6)	(Make sure you are still at the project root folder in your terminal) enter “*sh ./run_last.sh*” and enter the same password again.
+7)	When this script finishes, app is up on the cloud and can be accessed by entering the smallest IP address in step 4 followed by “:8003”. For example, “172.168.123.43:8003”. Make sure you are using The University of Melbourne’s network as well.
 
-worker: [172.26.133.31]
+Note: Here assume the project space in MRC is empty. If not, uncomment the second line in “*run_first.sh*” first before running it. 
 
-worker: [172.26.132.238]
-
+## Project specification
+Look at the specification pdf.
