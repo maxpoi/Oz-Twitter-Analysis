@@ -1,1 +1,3 @@
-{"income":[{"city":"adelaide","0_to_14":"225444","15_to_64":"860188","over_65":"206034"},{"city":"brisbane","0_to_14":"440390","15_to_64":"1525985","over_65":"272019"},{"city":"canberra","0_to_14":"43034","15_to_64":"191100","over_65":"18048"},{"city":"melbourne","0_to_14":"788939","15_to_64":"2975491","over_65":"583525"},{"city":"sydney","0_to_14":"894898","15_to_64":"3232995","over_65":"629190"}]}
+version https://git-lfs.github.com/spec/v1
+oid sha256:950f61c932b09799909fa26a88c5c6d6f51396efad1118cab5ee59cd919b7769
+size 402
