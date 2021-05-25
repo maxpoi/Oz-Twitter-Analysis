@@ -1,6 +1,7 @@
-    let _edu_data = [['City', 'Bachelor', 'Certificate', 'Graduated Diploma and Certificate', 'Advanced Diploma', 'Postgraduate', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+let _edu_data = [['City', 'Certificate', 'Graduated Diploma and Certificate', 'Advanced Diploma', 'Bachelor', 'Postgraduate', 'Negative Twitter Numbers', 'Neutral Twitter Numbers', 'Positive Twitter Numbers']];
 
     function myFunc(data, education, scenario) {
+
         if (scenario === 2){
             scenario_str = "Vaccine "
         }else{
@@ -27,10 +28,10 @@
             _edu_data.push(
                 [
                 data[index].key[0],
-                parseInt(education[i]['Bachelor_Degree_Level']),
                 parseInt(education[i]['Certificate_Level']),
                 parseInt(education[i]['Graduate_Diploma_and_Graduate_Certificate_Level']),
                 parseInt(education[i]['Advanced_Diploma_and_Diploma_Level']),
+                parseInt(education[i]['Bachelor_Degree_Level']),
                 parseInt(education[i]['Postgraduate_Degree_Level']),
                 data[index].value,
                 data[index+1].value,

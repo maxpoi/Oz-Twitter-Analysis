@@ -12,46 +12,52 @@
 
 <body>
     <div class="title">
-        <h1>CCC Project</h1>
+        <h1 class="stroke">Food Discussion Heat</h1>
     </div>
-    <div class="container">
-        <div class="scenario">
-            <button type="button" class="collapsible">AFL Discussion Amount</button>
-            <div class="content">
-                <p><a href="/scenario1_afl">Twitter Numbers</a></p>
-                <p><a href="/scenario1_afl/details">Age Distribution Analysis</a></p>
+    <ul>
+        <div class="nav1">
+            <a href="#">AFL Discussion Heat</a>
+            <div class="nav2">
+                <a href="/scenario1_afl">Twitter Discussion Heat</a>
+                <a href="/scenario1_afl/details">Detailed Analysis</a>
             </div>
-            <button type="button" class="collapsible">Vaccine</button>
-            <div class="content">
-                <p><a href="/scenario2_vaccine">Neutral Twitter Numbers</a></p>
-                <p><a href="/scenario2_vaccine_positive">Positive Twitter Numbers</a></p>
-                <p><a href="/scenario2_vaccine_negative">Negative Twitter Numbers</a></p>
-                <p><a href="/scenario2_vaccine/details">Detailed Analysis</a></p>
-            </div>
-            <button type="button" class="collapsible">5G</button>
-            <div class="content">
-                <p><a href="/scenario3_5g">Neutral Twitter Numbers</a></p>
-                <p><a href="/scenario3_5g_positive">Positive Twitter Numbers</a></p>
-                <p><a href="/scenario3_5g_negative">Negative Twitter Numbers</a></p>
-                <p><a href="/scenario3_5g/details">Detailed Analysis</a></p>
-            </div>
-            <button type="button" class="collapsible">Restaurants</button>
-            <div class="content">
-                <p><a href="/scenario4_food_us">American Food Twitter Numbers</a></p>
-                <p><a href="/scenario4_food_cn">Chinese Food Twitter Numbers</a></p>
-                <p><a href="/scenario4_food_fr">French Food Twitter Numbers</a></p>
-                <p><a href="/scenario4_food_it">Italian Food Twitter Numbers</a></p>
-                <p><a href="/scenario4_food_jp">Japanese Food Twitter Numbers</a></p>
-                <p><a href="/scenario4_food_kr">Korean Food Twitter Numbers</a></p>
-                <p><a href="/scenario4_food/details">Detailed Analysis</a></p>
-            </div>
-            <script src = "{{ url_for('static', filename = 'button.js')}}"></script>
         </div>
-        <div id="map"></div>
-        <script src="{{ url_for('static', filename = 'food_map.js')}}"></script>
-        <script type="text/javascript">
-            myVar = myFunc({{data|tojson}}, {{rest}})
-        </script>
+        <div class="nav1">
+            <a href="#">Vaccine Sentiment Analysis</a>
+            <div class="nav2">
+                <a href="/scenario2_vaccine_positive">Positive Twitter Numbers</a>
+                <a href="/scenario2_vaccine">Neutral Twitter Numbers</a>
+                <a href="/scenario2_vaccine_negative">Negative Twitter Numbers</a>
+                <a href="/scenario2_vaccine/details">Detailed Analysis</a>
+            </div>
+        </div>
+        <div class="nav1">
+            <a href="#">5G Sentiment Analysis</a>
+            <div class="nav2">
+                <a href="/scenario3_5g_positive">Positive Twitter Numbers</a>
+                <a href="/scenario3_5g">Neutral Twitter Numbers</a>
+                <a href="/scenario3_5g_negative">Negative Twitter Numbers</a>
+                <a href="/scenario3_5g/details">Detailed Analysis</a>
+            </div>
+        </div>
+        <div class="nav1">
+            <a href="#">Food Discussion Heat</a>
+            <div class="nav2">
+                <a href="/scenario4_food_us">American Food Twitter Discussion Heat</a>
+                <a href="/scenario4_food_cn">Chinese Food Twitter Discussion Heat</a>
+                <a href="/scenario4_food_fr">French Food Twitter Discussion Heat</a>
+                <a href="/scenario4_food_it">Italian Food Twitter Discussion Heat</a>
+                <a href="/scenario4_food_jp">Japanese Food Twitter Discussion Heat</a>
+                <a href="/scenario4_food_kr">Korean Food Twitter Discussion Heat</a>
+                <a href="/scenario4_food/details">Detailed Analysis</a>
+            </div>
+        </div>
+    </ul>
+    <div id="map"></div>
+    <script src="{{ url_for('static', filename = 'food_map.js')}}"></script>
+    <script type="text/javascript">
+        myVar = myFunc({{ data| tojson}}, {{ rest }})
+    </script>
     </div>
 
 </body>

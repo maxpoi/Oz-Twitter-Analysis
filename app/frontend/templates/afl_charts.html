@@ -1,27 +1,107 @@
 <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">google.charts.load('current', {'packages':['bar']});</script>
-  </head>
-  <body>
-    <table>
-      <tr>
-        <td><div id="barchart1" style="width: 900px; height: 500px;">
-              <script type="text/javascript" src="{{ url_for('static', filename = 'afl_age_chart.js')}}"></script>
-              <script type="text/javascript">
-                myVar = myFunc({{data|tojson}}, {{age_data|tojson}})
-              </script>
-        </div><td>
-      </tr>
-      <tr>
-        <td><div id="barchart2" style="width: 900px; height: 500px;">
-              <script type="text/javascript" src="{{ url_for('static', filename = 'afl_income_chart.js')}}"></script>
-              <script type="text/javascript">
-                myVar = myFunc({{data|tojson}}, {{income|tojson}})
-              </script>
-        </div><td>
-      </tr>
-    </table>
-    <h3><a href="/">back</a></h3>
-  </body>
+
+<head>
+
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">google.charts.load('current', { 'packages': ['bar'] });</script>
+<script type="text/javascript">google.charts.load('current', { 'packages': ['corechart'] });</script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+
+<body>
+
+  <div class="title">
+    <h1 class="stroke">AFL Detailed Analysis</h1>
+  </div>
+  <ul>
+    <div class="nav1">
+      <a href="#">AFL Discussion Heat</a>
+      <div class="nav2">
+        <a href="/scenario1_afl">Twitter Amounts</a>
+        <a href="/scenario1_afl/details">Detailed Analysis</a>
+      </div>
+    </div>
+    <div class="nav1">
+      <a href="#">Vaccine Sentiment Analysis</a>
+      <div class="nav2">
+        <a href="/scenario2_vaccine_positive">Positive Twitter Amounts</a>
+        <a href="/scenario2_vaccine">Neutral Twitter Amounts</a>
+        <a href="/scenario2_vaccine_negative">Negative Twitter Amounts</a>
+        <a href="/scenario2_vaccine/details">Detailed Analysis</a>
+      </div>
+    </div>
+    <div class="nav1">
+      <a href="#">5G Sentiment Analysis</a>
+      <div class="nav2">
+        <a href="/scenario3_5g_positive">Positive Twitter Amounts</a>
+        <a href="/scenario3_5g">Neutral Twitter Amounts</a>
+        <a href="/scenario3_5g_negative">Negative Twitter Amounts</a>
+        <a href="/scenario3_5g/details">Detailed Analysis</a>
+      </div>
+    </div>
+    <div class="nav1">
+      <a href="#">Food Discussion Heat</a>
+      <div class="nav2">
+        <a href="/scenario4_food_us">American Food Twitter Amounts</a>
+        <a href="/scenario4_food_cn">Chinese Food Twitter Amounts</a>
+        <a href="/scenario4_food_fr">French Food Twitter Amounts</a>
+        <a href="/scenario4_food_it">Italian Food Twitter Amounts</a>
+        <a href="/scenario4_food_jp">Japanese Food Twitter Amounts</a>
+        <a href="/scenario4_food_kr">Korean Food Twitter Amounts</a>
+        <a href="/scenario4_food/details">Detailed Analysis</a>
+      </div>
+    </div>
+  </ul>
+
+
+  <table>
+
+    <tr>
+      <td>
+        <div id="barchart3" style="width: 900px; height: 500px; margin:0 auto;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'afl_income_chart.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ income| tojson}})
+          </script>
+        </div>
+      </td>
+
+      <td>
+        <!-- PIE Chart here -->
+        <div id="piechart_afl" style="width: 900px; height: 500px;" align="center">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'pie_chart_for_afl.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}})
+          </script>
+        </div>
+      </td>
+
+    </tr>
+
+    <tr>
+      <td>
+        <div id="barchart1" style="width: 900px; height: 500px;">
+          <script type="text/javascript" src="{{ url_for('static', filename = 'afl_age_chart.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+          </script>
+        </div>
+      </td>
+
+      <td>
+        <div id="barchart2" style="width: 900px; height: 500px;">
+          <script type="text/javascript"
+            src="{{ url_for('static', filename = 'afl_age_percentage_chart.js')}}"></script>
+          <script type="text/javascript">
+            myVar = myFunc({{ data| tojson}}, {{ age_data| tojson}})
+          </script>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <!-- <h3><a href="/">back</a></h3> -->
+</body>
+
 </html>

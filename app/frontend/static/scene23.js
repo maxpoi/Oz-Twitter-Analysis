@@ -1,6 +1,6 @@
 
 
-    let _data = [['City', 'Negative Twitter Amount', 'Neutral Twitter Amount', 'Positive Twitter Amount']];
+    let _data = [['City', 'Negative Twitter Numbers', 'Neutral Twitter Numbers', 'Positive Twitter Numbers']];
 
     function myFunc(data, scenario) {
         if (scenario === 2){
