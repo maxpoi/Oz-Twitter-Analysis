@@ -17,9 +17,9 @@
 # helped tutorial: 
 #   https://snjksh.wordpress.com/2020/05/11/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-2-04/
 #   https://graspingtech.com/install-docker-ansible/
-- name: Uninstall old docker
-  become: yes
-  apt:
+# - name: Uninstall old docker
+#   become: yes
+#   apt:
 
 - name: Update apt
   become: yes

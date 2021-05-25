@@ -95,14 +95,62 @@
   debug:
     msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
 
-- name: Register master node ip from inventory for convinience
+- name: Register node123
   set_fact:
     master: "{{ groups['Master'][0] }}"
+    node2: "{{ groups['Worker1'][0] }}"
+    node3: "{{ groups['Worker2'][0] }}"
 
-- name: Print out master node
-  debug:
-    msg: "master is on: {{ master }}"
-  when: master is defined
+- name: Check user status
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_users'
+    method: 'GET'
+    return_content: yes
+    force_basic_auth: yes
+    status_code: [200, 201, 202, 404, 405]
+  register: _user
+
+- name: add users
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_users'
+    method: 'PUT'
+    force_basic_auth: yes
+    status_code: 201
+  when: "_user.json.error is defined"
+
+- name: Check _replicator status
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_replicator'
+    method: 'GET'
+    return_content: yes
+    force_basic_auth: yes
+    status_code: [200, 201, 202, 404, 405]
+  register: _replicator
+
+- name: add replicator
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_replicator'
+    method: 'PUT'
+    force_basic_auth: yes
+    status_code: 201
+  when: "_replicator.json.error is defined"
+
+- name: Check global_changes status
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_global_changes'
+    method: 'GET'
+    return_content: yes
+    force_basic_auth: yes
+    status_code: [200, 201, 202, 404, 405]
+  register: _global_changes
+
+- name: add global_changes
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ ansible_host }}:5984/_global_changes'
+    method: 'PUT'
+    force_basic_auth: yes
+    status_code: 201
+  when: "_global_changes.json.error is defined"
 
 # Check status a couchdb
 # Somehow docker compose automatically sets up cluster.
@@ -141,9 +189,9 @@
     force_basic_auth: yes
     # default is 200 = success, change to 201 for couchdb cluster
     status_code: 201
-  when: "ansible_host != master"
+  when: "ansible_host != master and couch_cluster.json.state != 'finished'"
 
-- name: Add nodes to cluster (2)
+- name: Add nodes to cluster (2.1)
   uri:
     url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984/_cluster_setup'
     method: 'POST'
@@ -151,7 +199,17 @@
     body_format: json
     force_basic_auth: yes
     status_code: 201
-  when: "ansible_host != master"
+  when: "ansible_host == node2 and couch_cluster.json.state != 'finished'"
+
+- name: Add nodes to cluster (2.2)
+  uri:
+    url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984/_cluster_setup'
+    method: 'POST'
+    body: '{"action": "add_node", "host":"{{ ansible_host }}", "port": 5984, "username": "{{ couch.user }}", "password":"{{ couch.pwd }}", "singlenode": false}'
+    body_format: json
+    force_basic_auth: yes
+    status_code: 201
+  when: "ansible_host == node3 and couch_cluster.json.state != 'finished'"
 
 - name: Sleep for 10
   wait_for:
@@ -163,6 +221,10 @@
     method: 'GET'
     force_basic_auth: yes
 
+- name: Sleep for 20
+  wait_for:
+    timeout: 10
+
 - name: Finish cluster setup
   uri:
     url: 'http://{{ couch.user }}:{{ couch.pwd }}@{{ master }}:5984/_cluster_setup'
@@ -171,7 +233,12 @@
     body_format: json
     force_basic_auth: yes
     status_code: 201
-  when: "ansible_host == master"
+    timeout: 120
+  when: "ansible_host == master and couch_cluster.json.state != 'finished'"
+
+- name: Sleep for 20
+  wait_for:
+    timeout: 20
 
 - name: Check couch cluster setup
   uri:

@@ -12,13 +12,13 @@
   gather_facts: true
 
   roles:
-    # - role: openstack/common
-    # - role: openstack/images
-    # - role: openstack/volumes
-    # - role: openstack/security-groups
-    # - role: openstack/instances
+    - role: openstack/common
+    - role: openstack/images
+    - role: openstack/volumes
+    - role: openstack/security-groups
+    - role: openstack/instances
     - role: openstack/post-instances
-    # - role: openstack-volume-snapshot
+    # - role: openstack-volume-snapshot # do not uncomment this!
 
 # - name: Set Up variables
 #   hosts:
@@ -36,10 +36,10 @@
   vars_files:
     - vars/config.yaml
   roles:
-    # - role: set-up/add-proxy
-    # - role: set-up/mount-volumes
-    # - role: set-up/install-packages
-    # - role: set-up/post-docker-installation
+    - role: set-up/add-proxy
+    - role: set-up/mount-volumes
+    - role: set-up/install-packages
+    - role: set-up/post-docker-installation
 
 
 - name: Deploy
@@ -49,6 +49,6 @@
     - vars/config.yaml
   roles:
     - role: deploy/copy-directory
-    # - role: deploy/couchdb
-    # - role: deploy/harvester
+    - role: deploy/couchdb
+    - role: deploy/harvester
     - role: deploy/app

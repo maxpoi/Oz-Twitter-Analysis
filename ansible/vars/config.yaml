@@ -22,9 +22,11 @@ couch:
   version: '3.1.1'
   user: 'admin'
   pwd: 'admin'
-  cookie: 'comp90024_cookie'
-  secret: 'comp90024_secret'
+  cookie: 'comp90024_cookie_demo'
+  secret: 'comp90024_secret_demo'
   port: 5984
+  worker1_port: 9100
+  worker2_port: 9200
   dir: /data/couchdb
   volume_path: /data/couchdb/data
   num_nodes: 3
