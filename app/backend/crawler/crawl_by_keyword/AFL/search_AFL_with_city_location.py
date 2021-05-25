@@ -1,7 +1,14 @@
-# 搜索 keyword = '$keyword' 的推文并统计个数
-# 搜索 5 个城市: Melbourne, Sydney, Canberra, Adelaide, Brisbane
+# @team 35
+# @author Jiacheng Ye   904973      Shanghai, China
+# @author Shiyi Xu      780801      Melbourne, Australia
+# @author Yuyao Ma      1111182     Yinchuan, China
+# @author Yujing Guan   1011792     Fuzhou, China
+# @author Zexin Yu      10328021    Dalian, China
 
-# 使用 tweept 库, link: https://github.com/tweepy/tweepy
+# Search tweets with keyword = '$keyword' and count them
+# Search 5 cities: Melbourne, Sydney, Canberra, Adelaide, Brisbane
+
+# Using the tweet library, link: https://github.com/tweepy/tweepy
 # APIs reference: https://docs.tweepy.org/en/latest/api.html#api-reference
 # https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
 
@@ -18,62 +25,60 @@ city_geo = {'Melbourne': '-37.813611,144.963056,60km', 'Sydney': '-33.865143,151
             'Canberra': '-35.282001,149.128998,16km', 'Adelaide': '-34.928497,138.600739,32km', 
             'Brisbane': '-27.469770,153.025131,71km', 'Perth': '-31.950527,115.860458,45km'}
 
-# 查询出现在某个 city 中的所有 带有 keyword 的推文数量
-# return 统计得到的数字
+# Query the number of tweets with keywords that appear in a city
+# Return statistics
 def count_keyword_in_different_cities(keyword, city, max_num, api):
     result_list = []
 
     count = 0
-    # 定义 max_id 以实现不断查询
+    # Define max_id to achieve continuous query
     max_id = 0
     prev_id = 0
 
-    # 因为 Twitter_api 限制每次最多返回100条，所以使用 max_id 字段限制每次返回的内容不同。
+    # Because of the Twitter API limits the maximum number of returns to 100 at a time, 
+    # so use max_id field restricts the content returned to be different each time.
     for i in range(0, int(max_num/100)):
-        # 第一次执行，没有 max_id 字段，调用无 max_id 的 api.search
+        # For the first time, there is no max_id field, call api.search() of no max_id
         if (i == 0):
             search_results = api.search(q = keyword, geocode = city_geo[city], count = 100)
-        # 后续执行，有 max_id 字段，通过 max_id 使其返回不重复的查询结果
+        # For the following times, call api.search() with max_id filed to achieve unique searching
         else:
             search_results = api.search(q = keyword, geocode = city_geo[city], max_id = max_id, count = 100)
 
-        # 如果查询结果为空，则结束循环
+        # If the query result is empty, the loop ends
         if (len(search_results) == 0):
-            # dict_result = {'keyword': keyword, 'city': city, 'results':result_list}
             print(city, count)
             return result_list
 
-        # Update max_id --- max_id 是最后一条查询结果的 _id
+        # Update max_id --- max_id is the _id of last query result
         max_id = search_results[-1]._json['id'] - 1
 
-        # 处理 tweet 内容
+        # Process tweet content
         for tweet in search_results:
-            # 如果这条的 id 和 上一条一样，证明已经找到了所有 tweets, return 即可
+            # If the id of this result is the same as that of the previous one, it can be proved that all tweets have been found, and then just return
             if (tweet._json['id'] == prev_id):
-                # dict_result = {'keyword': keyword, 'city': city, 'results':result_list}
                 print(city, count)
                 return result_list
 
-            # tweet 还是一个对象,推特的相关信息在 tweer._json 里
-            #这里是检测消息是否含有'text'键,并不是所有 TWitter 返回的所有对象都是消息(有些可能是用来删除消息或者其他内容的动作--这个没有确认),区别就是消息对象中是否含有'text'键
+            # tweet is an object, and the relevant information of Twitter is in tweet._json
+            # To detect whether a message contains a 'text' key. 
+            # Not all objects returned by twitter are messages. The difference is whether a message object contains a 'text' key
             if 'text' in tweet._json:
                 count += 1
                 dict_search = {'id': tweet._json['id_str'], 'created': tweet._json['created_at'], 'text': tweet._json['text'], 'city': city}
                 result_list.append(dict_search)
-                    # print(result_list)
-                    # file_handle.write('{\"id\":' + str(tweet._json['id_str']) + ',' + '\"created\":' + str(tweet._json['created_at']) + ',' + '\"text\":' + str(tweet._json['text']) + '},')
                 prev_id = tweet._json['id']
     print(city, count)
     return result_list
 
 def main():
-    # 得到 Twitter API 句柄
+    # Get Twitter API handle
     api = twitter_api()
 
     # The keyword we would like to search
     search_keyword = 'AFL'
 
-    # 定义最大查询 twitter 数量
+    # Define the name of CouchDB Database
     twitter_max_num = 100000
 
     filename = search_keyword + '_twitter_data.json'

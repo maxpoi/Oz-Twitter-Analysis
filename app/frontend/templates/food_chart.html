@@ -1,3 +1,10 @@
+<!-- @team 35
+@author Jiacheng Ye   904973      Shanghai, China
+@author Shiyi Xu      780801      Melbourne, Australia
+@author Yuyao Ma      1111182     Yinchuan, China
+@author Yujing Guan   1011792     Fuzhou, China
+@author Zexin Yu      10328021    Dalian, China -->
+
 <html>
 
 <head>
@@ -68,7 +75,7 @@
 
         <script>
           $(function () {
-            //隐藏div
+            //Hide div
             function hideDiv() {
               document.getElementById("piechart_food_adelaide").style.display = ("none");
               document.getElementById("piechart_food_brisbane").style.display = ("none");
@@ -79,7 +86,7 @@
             }
             setTimeout(hideDiv, 1000);
       
-            //给div添加change事件
+            // Set change event for div
             $("#type").change(function () {
               if ($(this).val() == 1) {
                 $("#piechart_food_overall").show();
