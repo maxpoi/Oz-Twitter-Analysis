@@ -12,6 +12,11 @@
   set_fact:
     master: "{{ groups['Master'][0] }}"
 
+- name: Prepare data
+  become: yes
+  command: chdir=/home/ubuntu/app/backend sh run_upload_data.sh
+  when: "ansible_host == master"
+
 - name: Start a container for app
   become: yes
   command: chdir=/home/ubuntu/app/ sh run.sh

@@ -46,14 +46,3 @@
     - role: set-up/install-packages
     - role: set-up/post-docker-installation
 
-
-- name: Deploy
-  hosts: COMP90024
-  gather_facts: true
-  vars_files:
-    - vars/config.yaml
-  roles:
-    - role: deploy/copy-directory
-    - role: deploy/couchdb
-    - role: deploy/harvester
-    - role: deploy/app

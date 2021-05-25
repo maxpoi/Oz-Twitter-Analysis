@@ -237,7 +237,7 @@
     body: '{"action": "finish_cluster"}'
     body_format: json
     force_basic_auth: yes
-    status_code: 201
+    status_code: [201, 500] # sometimes the couchdb waits too long, and ansible times out.
     timeout: 120
   when: "ansible_host == master and couch_cluster.json.state != 'finished'"
 
