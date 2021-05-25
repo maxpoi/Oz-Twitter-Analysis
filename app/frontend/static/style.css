@@ -97,7 +97,7 @@ body {
     /* background-color: */
 }
 
-/* 对导航栏的整体样式进行设置 */
+/* Set the overall style of the navigation bar */
   ul{
     width: auto;
     height: auto;
@@ -106,12 +106,12 @@ body {
     position:relative; 
     z-index:1
 }
-/* 删除列表的样式并设置浮动 */
+/* Remove the style of the list and set the float */
 ul li{
     list-style: none;
     float: left;
 }
-/* 设置a标签的样式 */
+/* Set the style of a tag */
 a{
     color: #FFFFFF;
     padding: 20px;
@@ -123,15 +123,16 @@ a{
 }
 
 .nav1 {
-    position: relative;/* 设置相对定位 */
-    display: inline-block;/* 让元素具有块级元素和行内元素的特性,即将块级元素转化为内联元素 */
+    position: relative;/* Set relative positioning */
+    /* Let elements have the characteristics of block-level elements and inline elements, that is, convert block-level elements into inline elements */
+    display: inline-block;
 }
 
 .nav2 {
-    display: none;/* 将某元素隐藏起来 */
-    position: absolute;/* 绝对定位 */
+    display: none;/* Hide an element */
+    position: absolute;/* Absolute positioning */
     background-color: #f9f9f9;
-    min-width: 100%;/* 最小宽度 */
+    min-width: 100%;/* Minimum width */
     width: auto;
     height: auto;
     text-align: center;
@@ -144,16 +145,16 @@ a{
     font-size: 100%;
     width: auto;
     height: auto;
-    display: block;/* 将a标签设置为块级标签 */
+    display: block;/* Set the a tag as a block-level tag */
 }
 
 .nav2 a:hover {
     background-color: #00A2E9
-}/* 鼠标悬浮时的颜色 */
+}/* Color when hovering */
 
 .nav1:hover .nav2 {
     display: block;
-}/* 鼠标悬浮在元素上时,变为块级标签 */
+}/* When the mouse is suspended on the element, it becomes block-level label */
 
 .nav1:hover,li:hover{
     background-color: #3F3F3F

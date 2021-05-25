@@ -65,7 +65,7 @@
 
       <td>
         <script>
-          //隐藏div
+          //Hide div
           function hideDiv() {
             document.getElementById("piechart_23_adelaide").style.display = ("none");
             document.getElementById("piechart_23_brisbane").style.display = ("none");
@@ -76,7 +76,7 @@
           }
           setTimeout(hideDiv, 1000);
           $(function () {
-            //给div添加change事件
+            // Set change event for div
             $("#type").change(function () {
               if ($(this).val() == 1) {
                 $("#piechart_23_overall").show();
