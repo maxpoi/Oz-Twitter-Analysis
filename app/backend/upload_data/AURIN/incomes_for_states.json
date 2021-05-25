@@ -1,24 +1,3 @@
-{   
-    "_id": "6717d242b5c572b6bd66ac82c650b912",
-    "_rev": "1-dafc553cb586c79de6dfc2e6029b4a80",
-    "incomes": [
-        {
-            "state": "VIC",
-            "income_total": "192255000000",
-            "total_persons": "3257293",
-            "mean_income": "59022.88"
-        },
-        {
-            "state": "QLD",
-            "income_total": "151440000000",
-            "total_persons": "2591466",
-            "mean_income": "58437.85"
-        },
-        {
-            "state": "NSW",
-            "income_total": "256749000000",
-            "total_persons": "4088675",
-            "mean_income": "62795.28"
-        }
-    ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:74314b436d045fa4361b3321f793ce644c94743218abc073640512a82d441d5e
+size 638
