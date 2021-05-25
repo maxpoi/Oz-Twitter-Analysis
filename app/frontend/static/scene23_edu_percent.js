@@ -1,3 +1,10 @@
+// @team 35
+// @author Jiacheng Ye   904973      Shanghai, China
+// @author Shiyi Xu      780801      Melbourne, Australia
+// @author Yuyao Ma      1111182     Yinchuan, China
+// @author Yujing Guan   1011792     Fuzhou, China
+// @author Zexin Yu      10328021    Dalian, China
+
 let _edu_per_data = [['City', 'Certificate and Diploma', 'Bachelor', 'Postgraduate', 'Negative Twitter Percentage', 'Neutral Twitter Percentage', 'Positive Twitter Percentage']];
 
     function myFunc(data, education, scenario) {
