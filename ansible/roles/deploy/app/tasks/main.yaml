@@ -13,20 +13,19 @@
     master: "{{ groups['Master'][0] }}"
 
 - name: Unzip
-  become: yes
-  unarchive:
-    src: chdir=/home/ubuntu/app/backend/upload_data data.zip
-    dest: /home/ubuntu/app/backend/upload_data/
-    owner: '0'
-    group: '0'
-    extra_opts: [--strip-components=1]
+  # become: yes
+  # unarchive:
+  #   src: '~/{{ git.repo_name }}/app/backend/upload_data/data.zip'
+  #   dest: '~/{{ git.repo_name }}/app/backend/upload_data'
+  #   remote_src: yes
+  command: 'chdir=/home/ubuntu/{{ git.repo_name }}/app/backend/upload_data unzip data.zip'
 
 - name: Prepare data
   become: yes
-  command: chdir=/home/ubuntu/app/backend sh run_upload_data.sh
+  command: 'chdir=/home/ubuntu/{{ git.repo_name }}/app/backend sh run_upload_data.sh'
   when: "ansible_host == master"
 
 - name: Start a container for app
   become: yes
-  command: chdir=/home/ubuntu/app/ sh run.sh
+  command: 'chdir=/home/ubuntu/{{ git.repo_name }}/app/ sh run.sh'
   when: "ansible_host == master"

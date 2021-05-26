@@ -35,3 +35,7 @@ couch:
   dir: /data/couchdb
   volume_path: /data/couchdb/data
   num_nodes: 3
+
+git:
+  repo: https://github.com/maxpoi/Oz-Twitter-Analysis.git
+  repo_name: Oz-Twitter-Analysis

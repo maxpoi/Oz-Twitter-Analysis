@@ -7,14 +7,14 @@
 
 ---
 
-- name: Create app directory
-  become: yes
-  file:
-    path: 'app'
-    recurse: yes
-    state: directory
-    owner: '0'
-    group: '0'
+# - name: Create app directory
+#   become: yes
+#   file:
+#     path: 'app'
+#     recurse: yes
+#     state: directory
+#     owner: ubuntu
+#     group: ubuntu
 
 # - name: Copy file
 #   become: yes
@@ -22,10 +22,18 @@
 #   become: yes
 # scp -i ~/desktop/ccc/comp90024-assignment2.pem -pr ~/desktop/ccc/comp90024-assignment-2/app ubuntu@172.26.128.169:~/
 
-- name: Copy file
+# - name: Copy file
+#   become: yes
+#   synchronize:
+#     src: '{{ playbook_dir[:-8] }}/app/'
+#     dest: ~/app/
+#     owner: '0'
+#     group: '0'
+
+- name: Remove previous folder
   become: yes
-  synchronize:
-    src: '{{ playbook_dir[:-8] }}/app/'
-    dest: ~/app/
-    owner: '0'
-    group: '0'
+  command: 'rm -rf {{ git.repo_name }}'
+  
+- name: Clone
+  become: no
+  command: 'git clone {{ git.repo }}'

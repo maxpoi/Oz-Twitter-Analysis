@@ -10,6 +10,8 @@ from os.path import dirname, abspath
 parent_dir = dirname(dirname(abspath(__file__)))
 sys.path.append(parent_dir)
 
+from app.backend.mapreduce.map_reduce import main as run_mr
+
 from couchdb_config import Config
 from utils.sentiment_analysis import calculate_sentiment_scores
 
@@ -26,7 +28,29 @@ AURIN_datas = ["age_distribution_for_cities.json", "age_distribution_for_states.
                "incomes_for_cities.json", "incomes_for_states.json",
                "level_of_education_for_cities.json", "level_of_education_for_states.json"]
 
+def createDB():
+    server = couchdb.Server(Config.COUCHDB_SERVER)
+    for db_name, json_file in data_base1:
+       if (not server.__contains__(db_name)):
+            db = server.create(db_name)
+
+    for db_name, json_file in data_base2:
+        if (not server.__contains__(db_name)):
+            db = server.create(db_name)
+
+    for db_name, json_file in data_base3:
+        if (not server.__contains__(db_name)):
+            db = server.create(db_name)
+    
+    db_name = "aurin"
+    if (not server.__contains__(db_name)):
+        db = server.create(db_name)
+
+    run_mr()
+
 def main():
+    createDB()
+    
     server = couchdb.Server(Config.COUCHDB_SERVER)
     for db_name, json_file in data_base1:
         print(db_name, json_file)

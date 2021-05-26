@@ -19,16 +19,16 @@
 
 - name: Start a container for haverster
   become: yes
-  command: chdir=/home/ubuntu/app/backend/ sh run_node_1.sh
+  command: 'chdir=/home/ubuntu/{{ git.repo_name }}/app/backend/ sh run_node_1.sh'
   when: "ansible_host == node1"
 
 - name: Start a container for haverster
   become: yes
-  command: chdir=/home/ubuntu/app/backend/ sh run_node_2.sh
+  command: 'chdir=/home/ubuntu/{{ git.repo_name }}/app/backend/ sh run_node_2.sh'
   when: "ansible_host == node2"
 
 - name: Start a container for haverster
   become: yes
-  command: chdir=/home/ubuntu/app/backend/ sh run_node_3.sh
+  command: 'chdir=/home/ubuntu/{{ git.repo_name }}/app/backend/ sh run_node_3.sh'
   when: "ansible_host == node3"
   
